@@ -20,7 +20,7 @@ from .modeles import (
 )
 
 
-app = FastAPI(title="Projet Ecole Avance API")
+app = FastAPI(title="API ecole")
 gestion = GestionEcole()
 
 

@@ -394,7 +394,7 @@ def main() -> None:
 
     while True:
         print()
-        print("=== Admin Ecole ===")
+        print("=== Menu admin de l'ecole ===")
         print("1. Lire eleves (admin)")
         print("2. Creer eleve")
         print("3. Modifier eleve")
@@ -419,7 +419,7 @@ def main() -> None:
         print("22. Creer inscription club")
         print("23. Modifier inscription club")
         print("24. Supprimer inscription club")
-        print("25. Endpoints du sujet")
+        print("25. Voir les routes du sujet")
         print("0. Quitter")
 
         choice = prompt("Choix")
