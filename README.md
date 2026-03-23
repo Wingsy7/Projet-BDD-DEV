@@ -27,23 +27,57 @@ J'ai essaye de ranger les fichiers simplement pour m'y retrouver plus facilement
 - `livrables/schema_bdd_ecole.png` : le schema de la base
 - `scripts/verifier_projet.ps1` : un script pour verifier vite le projet
 
-## Fonctionnalite supplementaire
+## Fonctionnalite supplementaire : Clubs de l'ecole
 
-J'ai choisi les clubs de l'ecole.
+J'ai choisi d'ajouter la gestion des clubs de l'ecole.
 
-Du coup il y a :
+### Tables ajoutees
 
-- une table `club`
-- une table `inscription_club`
-- des routes API pour lire et modifier les clubs
-- les actions correspondantes dans le menu admin
+- `club` : stocke les clubs de l'ecole
+  - `nom` : nom du club
+  - `categorie` : type de club (sport, culture, informatique...)
+  - `budget_annuel` : budget du club en euros
+  - `responsable_prof_id` : prof responsable du club (optionnel)
+
+- `inscription_club` : table de liaison entre les eleves et les clubs
+  - `club_id` : club concerne
+  - `eleve_id` : eleve inscrit
+  - `role_membre` : role de l'eleve dans le club (membre, president, tresorier...)
+  - `date_inscription` : date d'entree dans le club
+  - Contrainte UNIQUE sur (club_id, eleve_id) : un eleve ne peut pas etre inscrit deux fois au meme club
+
+### Relations
+
+- Un club peut avoir plusieurs eleves, un eleve peut rejoindre plusieurs clubs
+- Un prof peut etre responsable de plusieurs clubs
+- Si un prof est supprime, le champ responsable_prof_id passe a NULL (ON DELETE SET NULL)
+- Si un eleve est supprime, ses inscriptions aux clubs sont supprimees (ON DELETE CASCADE)
+
+### Routes API ajoutees
+
+- `GET /clubs` : liste tous les clubs avec le nombre de membres
+- `GET /clubs/{club_id}/membres` : liste les membres d'un club
+- `GET /eleve/{eleve_id}/clubs` : liste les clubs d'un eleve
+- `POST /clubs` : creer un club
+- `PUT /clubs/{club_id}` : modifier un club
+- `DELETE /clubs/{club_id}` : supprimer un club
+- `GET /club-inscriptions` : liste toutes les inscriptions
+- `POST /club-inscriptions` : inscrire un eleve a un club
+- `PUT /club-inscriptions/{id}` : modifier une inscription
+- `DELETE /club-inscriptions/{id}` : supprimer une inscription
+
+### Menu admin
+
+Le menu admin permet de gerer les clubs et les inscriptions via l'API :
+- Lister les clubs et leurs membres
+- Creer, modifier, supprimer un club
+- Inscrire un eleve a un club, modifier ou supprimer une inscription
 
 ## Installation
 
 Depuis le dossier `projet-ecole-avance` :
-
 ```powershell
-& 'C:\Users\cozma\AppData\Local\Python\pythoncore-3.14-64\python.exe' -m pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 ## Mise en place de la base
@@ -68,31 +102,26 @@ Si besoin, il faut juste changer ce nom pour mettre exactement le nom du groupe 
 - `SCHOOL_API_URL`
 
 Valeur actuelle :
-
 ```text
 SCHOOL_DB_NAME=cozma_miroslav
 ```
 
 ## Lancer l'API
-
 ```powershell
-& 'C:\Users\cozma\AppData\Local\Python\pythoncore-3.14-64\python.exe' -m uvicorn app.api:app --reload --app-dir api
+python -m uvicorn app.api:app --reload --app-dir api
 ```
 
 Ensuite on peut ouvrir Swagger ici :
-
 ```text
 http://127.0.0.1:8000/docs
 ```
 
 ## Lancer le menu admin
-
 ```powershell
-& 'C:\Users\cozma\AppData\Local\Python\pythoncore-3.14-64\python.exe' admin_cli/menu_admin.py
+python admin_cli/menu_admin.py
 ```
 
 ## Verifier vite fait
-
 ```powershell
 & ".\scripts\verifier_projet.ps1"
 ```

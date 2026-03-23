@@ -1,3 +1,6 @@
+
+
+from datetime import date, datetime
 from pydantic import BaseModel, Field
 
 
@@ -52,14 +55,12 @@ class DossierUpdate(BaseModel):
 class InstanceCoursCreate(BaseModel):
     cours_id: int
     prof_id: int
-    date_cours: str
-
+    date_cours: datetime
 
 class InstanceCoursUpdate(BaseModel):
     cours_id: int | None = None
     prof_id: int | None = None
-    date_cours: str | None = None
-
+    date_cours: datetime | None = None
 
 class ClubCreate(BaseModel):
     nom: str = Field(min_length=2, max_length=150)
@@ -79,11 +80,11 @@ class ClubInscriptionCreate(BaseModel):
     club_id: int
     eleve_id: int
     role_membre: str = Field(min_length=2, max_length=120)
-    date_inscription: str
-
+    date_inscription: date
 
 class ClubInscriptionUpdate(BaseModel):
     club_id: int | None = None
     eleve_id: int | None = None
     role_membre: str | None = Field(default=None, min_length=2, max_length=120)
-    date_inscription: str | None = None
+    date_inscription: date | None = None
+
