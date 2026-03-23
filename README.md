@@ -24,6 +24,10 @@ Le projet est separe en 2 parties :
 - `admin_cli/menu_admin.py` : le menu en ligne de commande
 - `admin_cli/client_api.py` : les requetes HTTP avec `requests`
 - `livrables/schema_bdd_ecole.png` : le schema de la base
+- `scripts/installer_dependances.ps1` : script d'installation Python
+- `scripts/recreer_bdd.ps1` : script pour recreer la base
+- `scripts/lancer_api.ps1` : script pour lancer l'API
+- `scripts/lancer_menu.ps1` : script pour lancer le menu admin
 - `scripts/verifier_projet.ps1` : un script pour verifier vite le projet
 
 ## Fonctionnalite supplementaire : Clubs de l'ecole
@@ -76,23 +80,28 @@ Le menu admin permet de gerer les clubs et les inscriptions via l'API :
 
 Depuis le dossier `projet-ecole-avance` :
 ```powershell
-$python = "C:\Users\cozma\AppData\Local\Python\pythoncore-3.14-64\python.exe"
-& $python -m pip install -r requirements.txt
+.\scripts\installer_dependances.ps1
 ```
 
-Si la commande `python` fonctionne deja sur ta machine, on peut aussi faire plus court :
+Si besoin, on peut forcer un interpreteur Python avec une variable d'environnement :
 ```powershell
-python -m pip install -r requirements.txt
+$env:SCHOOL_PYTHON = "C:\chemin\vers\python.exe"
+.\scripts\installer_dependances.ps1
 ```
 
 ## Mise en place de la base
 
-Ordre conseille pour lancer la base :
+Le plus simple :
+```powershell
+.\scripts\recreer_bdd.ps1
+```
 
-1. lancer `sql/creation_bdd.sql`
-2. lancer `sql/procedure_et_triggers.sql`
-3. lancer `sql/donnees_depart.sql`
-4. si besoin, lancer `sql/requetes_du_tp.sql` pour montrer les requetes
+On peut aussi lancer les fichiers SQL a la main dans cet ordre :
+
+1. `sql/creation_bdd.sql`
+2. `sql/procedure_et_triggers.sql`
+3. `sql/donnees_depart.sql`
+4. `sql/requetes_du_tp.sql` si on veut montrer les requetes
 
 La base s'appelle actuellement `cozma_miroslav`.
 Si besoin, il faut juste changer ce nom pour mettre exactement le nom du groupe demande.
@@ -105,16 +114,21 @@ Si besoin, il faut juste changer ce nom pour mettre exactement le nom du groupe 
 - `SCHOOL_DB_PASSWORD`
 - `SCHOOL_DB_NAME`
 - `SCHOOL_API_URL`
+- `SCHOOL_PYTHON`
+- `SCHOOL_MYSQL_EXE`
+- `SCHOOL_MYSQLDUMP_EXE`
 
 Valeur actuelle :
 ```text
 SCHOOL_DB_NAME=cozma_miroslav
 ```
 
+Le projet peut aussi lire un fichier `.env` a la racine.
+Le plus simple est de partir de `.env.example`.
+
 ## Lancer l'API
 ```powershell
-$python = "C:\Users\cozma\AppData\Local\Python\pythoncore-3.14-64\python.exe"
-& $python -m uvicorn app.api:app --reload --app-dir api
+.\scripts\lancer_api.ps1
 ```
 
 Ensuite on peut ouvrir Swagger ici :
@@ -124,14 +138,7 @@ http://127.0.0.1:8000/docs
 
 ## Lancer le menu admin
 ```powershell
-$python = "C:\Users\cozma\AppData\Local\Python\pythoncore-3.14-64\python.exe"
-& $python admin_cli/menu_admin.py
-```
-
-Si `python` marche deja dans le terminal, cette version fonctionne aussi :
-```powershell
-python -m uvicorn app.api:app --reload --app-dir api
-python admin_cli/menu_admin.py
+.\scripts\lancer_menu.ps1
 ```
 
 ## Verifier vite fait
@@ -140,6 +147,15 @@ python admin_cli/menu_admin.py
 ```
 
 Je l'ai surtout garde pour verifier rapidement que la base, l'API et le menu tournent encore ensemble.
+
+## Portabilite
+
+J'ai essaye de faire en sorte que le projet demande le moins d'adaptation possible :
+
+- les scripts PowerShell detectent Python et MySQL automatiquement si c'est dans le PATH
+- sinon on peut donner les chemins avec `SCHOOL_PYTHON`, `SCHOOL_MYSQL_EXE` et `SCHOOL_MYSQLDUMP_EXE`
+- les variables de base de donnees peuvent etre lues depuis l'environnement ou depuis un fichier `.env`
+- le script de verification choisit maintenant un port API libre automatiquement
 
 ## Points importants
 

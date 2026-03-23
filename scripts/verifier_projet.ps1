@@ -1,28 +1,18 @@
 $ErrorActionPreference = "Stop"
 
-$projectRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
-$python = "C:\Users\cozma\AppData\Local\Python\pythoncore-3.14-64\python.exe"
-$mysql = "C:\xampp\mysql\bin\mysql.exe"
-$dbName = "cozma_miroslav"
+. (Join-Path $PSScriptRoot "outils.ps1")
 
-function Lance-FichierSql {
-    param([string] $Path)
+Import-ProjectEnv
 
-    $fullPath = [System.IO.Path]::GetFullPath($Path)
-    & $mysql -u root --execute="source $($fullPath -replace '\\', '/')" | Out-Host
-}
-
-function Lance-RequeteSql {
-    param([string] $Query)
-
-    & $mysql -u root --table --execute=$Query | Out-Host
-}
+$projectRoot = Get-ProjectRoot
+$python = Get-PythonPath
+$dbName = Get-EnvValue "SCHOOL_DB_NAME" "cozma_miroslav"
 
 Write-Host ""
 Write-Host "== Reset base =="
-Lance-FichierSql (Join-Path $projectRoot "sql\creation_bdd.sql")
-Lance-FichierSql (Join-Path $projectRoot "sql\procedure_et_triggers.sql")
-Lance-FichierSql (Join-Path $projectRoot "sql\donnees_depart.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\creation_bdd.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\procedure_et_triggers.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\donnees_depart.sql")
 
 Write-Host ""
 Write-Host "== SQL smoke =="
@@ -37,7 +27,7 @@ JOIN eleve e ON e.id = c.eleve_id
 ORDER BY c.score DESC, c.moyenne_generale DESC, e.nom ASC
 LIMIT 3;
 "@
-Lance-RequeteSql $sqlSmoke
+Invoke-SqlQuery $sqlSmoke
 
 Write-Host ""
 Write-Host "== Trigger smoke =="
@@ -68,10 +58,12 @@ DELETE FROM prof WHERE id = @temp_prof_id;
 SELECT id, valeur, prof_id FROM note WHERE id = @temp_note_id;
 DELETE FROM note WHERE id = @temp_note_id;
 "@
-Lance-RequeteSql $triggerSmoke
+Invoke-SqlQuery $triggerSmoke
 
 Write-Host ""
 Write-Host "== API smoke =="
+$port = Get-FreeTcpPort
+$env:SCHOOL_API_URL = "http://127.0.0.1:$port"
 $stdoutLog = Join-Path $projectRoot "uvicorn-test.out.log"
 $stderrLog = Join-Path $projectRoot "uvicorn-test.err.log"
 if (Test-Path $stdoutLog) { Remove-Item $stdoutLog -Force }
@@ -79,7 +71,7 @@ if (Test-Path $stderrLog) { Remove-Item $stderrLog -Force }
 
 $proc = Start-Process `
     -FilePath $python `
-    -ArgumentList "-m", "uvicorn", "app.api:app", "--host", "127.0.0.1", "--port", "8000", "--app-dir", "api" `
+    -ArgumentList "-m", "uvicorn", "app.api:app", "--host", "127.0.0.1", "--port", $port, "--app-dir", "api" `
     -WorkingDirectory $projectRoot `
     -RedirectStandardOutput $stdoutLog `
     -RedirectStandardError $stderrLog `
@@ -94,11 +86,11 @@ try {
         throw "Uvicorn a quitte trop tot."
     }
 
-    $apiSmoke = @'
+    $apiSmoke = @"
 import json
 import requests
 
-base = "http://127.0.0.1:8000"
+base = "$($env:SCHOOL_API_URL)"
 
 def req(path):
     response = requests.get(base + path, timeout=30)
@@ -113,7 +105,7 @@ summary = {
     "absence_eleve_2": req("/eleve/2/absence"),
 }
 print(json.dumps(summary, indent=2, ensure_ascii=True))
-'@
+"@
     $apiSmoke | & $python - | Out-Host
 
     Write-Host ""
@@ -128,9 +120,9 @@ finally {
 
 Write-Host ""
 Write-Host "== Reset final =="
-Lance-FichierSql (Join-Path $projectRoot "sql\creation_bdd.sql")
-Lance-FichierSql (Join-Path $projectRoot "sql\procedure_et_triggers.sql")
-Lance-FichierSql (Join-Path $projectRoot "sql\donnees_depart.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\creation_bdd.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\procedure_et_triggers.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\donnees_depart.sql")
 
 Write-Host ""
 Write-Host "== OK =="
