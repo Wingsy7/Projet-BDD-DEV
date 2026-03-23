@@ -10,7 +10,6 @@ Le projet est separe en 2 parties :
 - la base de donnees MySQL
 - l'API + le menu admin en Python
 
-J'ai essaye de ranger les fichiers simplement pour m'y retrouver plus facilement pendant le TP.
 
 ## Contenu du dossier
 
@@ -29,7 +28,7 @@ J'ai essaye de ranger les fichiers simplement pour m'y retrouver plus facilement
 
 ## Fonctionnalite supplementaire : Clubs de l'ecole
 
-J'ai choisi d'ajouter la gestion des clubs de l'ecole.
+On a choisi d'ajouter la gestion des clubs de l'ecole.
 
 ### Tables ajoutees
 
