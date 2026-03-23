@@ -39,10 +39,10 @@ a comprendre, mais assez complete pour repondre a tout le sujet.
 
 J'ai separe la base en plusieurs fichiers :
 
-- creation_bdd.sql pour les tables et les relations
-- donnees_depart.sql pour avoir un vrai jeu de test
-- requetes_du_tp.sql pour toutes les requetes demandees
-- procedure_et_triggers.sql pour la procedure stockee et les triggers
+- base.sql pour les tables et les relations
+- donnees.sql pour avoir un vrai jeu de test
+- requetes.sql pour toutes les requetes demandees
+- automatismes.sql pour la procedure stockee et les triggers
 
 J'ai choisi de faire des tables de liaison quand c'etait utile, par exemple :
 
@@ -136,11 +136,11 @@ le calcul est fait en Python et pas dans une grosse requete SQL.
 
 J'ai separe l'API en plusieurs petits fichiers pour m'y retrouver plus facilement :
 
-- api.py pour les routes
-- gestion_ecole.py pour les traitements
-- requetes_sql.py pour les requetes simples
-- connexion_bdd.py pour la connexion a MySQL
-- modeles.py pour les modeles FastAPI
+- routes.py pour les routes
+- traitements.py pour les traitements
+- requetes.py pour les requetes simples
+- bdd.py pour la connexion a MySQL
+- schemas.py pour les modeles FastAPI
 
 Je trouvais ca plus propre qu'un seul gros fichier, surtout quand j'ai commence a
 ajouter les CRUD et les routes supplementaires.

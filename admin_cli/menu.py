@@ -1,7 +1,7 @@
 import json
 from typing import Any
 
-from client_api import ClientAPI
+from client import ClientAPI
 
 
 client = ClientAPI()
@@ -122,6 +122,24 @@ def preview_club_inscriptions() -> None:
         print(
             f"{inscription['id']} - club {inscription['club_nom']} | eleve {inscription['eleve_nom']} | "
             f"role {inscription['role_membre']} | date {inscription['date_inscription']}"
+        )
+
+
+def preview_entreprises() -> None:
+    print_title("Entreprises")
+    for entreprise in client.request("GET", "/entreprises"):
+        print(
+            f"{entreprise['id']} - {entreprise['nom']} | {entreprise['secteur']} | "
+            f"{entreprise['ville']} | contact {entreprise['email_contact'] or 'non renseigne'}"
+        )
+
+
+def preview_alternances() -> None:
+    print_title("Alternances")
+    for alternance in client.request("GET", "/alternances"):
+        print(
+            f"{alternance['id']} - {alternance['eleve_nom']} | {alternance['entreprise_nom']} | "
+            f"{alternance['type_contrat']} | {alternance['poste']} | salaire {alternance['salaire_mensuel']}"
         )
 
 
@@ -314,6 +332,76 @@ def delete_club_inscription() -> None:
     show(client.request("DELETE", f"/club-inscriptions/{inscription_id}"))
 
 
+def create_entreprise() -> None:
+    payload = {
+        "nom": prompt("Nom"),
+        "secteur": prompt("Secteur"),
+        "ville": prompt("Ville"),
+        "email_contact": prompt("Email contact (optionnel)") or None,
+        "telephone": prompt("Telephone (optionnel)") or None,
+    }
+    show(client.request("POST", "/entreprises", json_data=payload))
+
+
+def update_entreprise() -> None:
+    preview_entreprises()
+    entreprise_id = prompt_int("Entreprise id")
+    payload = {
+        "nom": prompt("Nom (laisser vide pour ignorer)") or None,
+        "secteur": prompt("Secteur (laisser vide pour ignorer)") or None,
+        "ville": prompt("Ville (laisser vide pour ignorer)") or None,
+        "email_contact": prompt("Email contact (laisser vide pour ignorer)") or None,
+        "telephone": prompt("Telephone (laisser vide pour ignorer)") or None,
+    }
+    show(client.request("PUT", f"/entreprises/{entreprise_id}", json_data=payload))
+
+
+def delete_entreprise() -> None:
+    preview_entreprises()
+    entreprise_id = prompt_int("Entreprise id")
+    show(client.request("DELETE", f"/entreprises/{entreprise_id}"))
+
+
+def create_alternance() -> None:
+    preview_eleves()
+    preview_entreprises()
+    payload = {
+        "eleve_id": prompt_int("Eleve id"),
+        "entreprise_id": prompt_int("Entreprise id"),
+        "type_contrat": prompt("Type contrat"),
+        "poste": prompt("Poste"),
+        "rythme": prompt("Rythme"),
+        "date_debut": prompt("Date debut (YYYY-MM-DD)"),
+        "date_fin": prompt("Date fin (laisser vide si absent)") or None,
+        "salaire_mensuel": prompt_float("Salaire mensuel"),
+    }
+    show(client.request("POST", "/alternances", json_data=payload))
+
+
+def update_alternance() -> None:
+    preview_alternances()
+    preview_eleves()
+    preview_entreprises()
+    alternance_id = prompt_int("Alternance id")
+    payload = {
+        "eleve_id": prompt_int("Eleve id (laisser vide pour ignorer)", allow_empty=True),
+        "entreprise_id": prompt_int("Entreprise id (laisser vide pour ignorer)", allow_empty=True),
+        "type_contrat": prompt("Type contrat (laisser vide pour ignorer)") or None,
+        "poste": prompt("Poste (laisser vide pour ignorer)") or None,
+        "rythme": prompt("Rythme (laisser vide pour ignorer)") or None,
+        "date_debut": prompt("Date debut (laisser vide pour ignorer)") or None,
+        "date_fin": prompt("Date fin (laisser vide pour ignorer)") or None,
+        "salaire_mensuel": prompt_float("Salaire mensuel (laisser vide pour ignorer)", allow_empty=True),
+    }
+    show(client.request("PUT", f"/alternances/{alternance_id}", json_data=payload))
+
+
+def delete_alternance() -> None:
+    preview_alternances()
+    alternance_id = prompt_int("Alternance id")
+    show(client.request("DELETE", f"/alternances/{alternance_id}"))
+
+
 def menu_read() -> None:
     print("1. Liste eleves")
     print("2. Eleve par id")
@@ -328,6 +416,9 @@ def menu_read() -> None:
     print("11. Membres d'un club")
     print("12. Clubs d'un eleve")
     print("13. Heures d'absence d'un eleve")
+    print("14. Entreprises")
+    print("15. Alternances")
+    print("16. Alternance d'un eleve")
     choice = prompt("Choix lecture")
 
     if choice == "1":
@@ -361,6 +452,13 @@ def menu_read() -> None:
     elif choice == "13":
         preview_eleves()
         list_endpoint(f"/eleve/{prompt_int('Eleve id')}/absence")
+    elif choice == "14":
+        list_endpoint("/entreprises")
+    elif choice == "15":
+        list_endpoint("/alternances")
+    elif choice == "16":
+        preview_eleves()
+        list_endpoint(f"/eleve/{prompt_int('Eleve id')}/alternance")
 
 
 def main() -> None:
@@ -389,7 +487,15 @@ def main() -> None:
         "22": create_club_inscription,
         "23": update_club_inscription,
         "24": delete_club_inscription,
-        "25": menu_read,
+        "25": preview_entreprises,
+        "26": create_entreprise,
+        "27": update_entreprise,
+        "28": delete_entreprise,
+        "29": preview_alternances,
+        "30": create_alternance,
+        "31": update_alternance,
+        "32": delete_alternance,
+        "33": menu_read,
     }
 
     while True:
@@ -419,7 +525,15 @@ def main() -> None:
         print("22. Creer inscription club")
         print("23. Modifier inscription club")
         print("24. Supprimer inscription club")
-        print("25. Voir les routes du sujet")
+        print("25. Lire entreprises")
+        print("26. Creer entreprise")
+        print("27. Modifier entreprise")
+        print("28. Supprimer entreprise")
+        print("29. Lire alternances")
+        print("30. Creer alternance")
+        print("31. Modifier alternance")
+        print("32. Supprimer alternance")
+        print("33. Voir les routes du sujet")
         print("0. Quitter")
 
         choice = prompt("Choix")

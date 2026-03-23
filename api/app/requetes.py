@@ -1,3 +1,9 @@
+"""Requetes SQL simples utilisees par l'API.
+
+Le principe du projet est de garder ici des SELECT assez simples,
+puis de faire les calculs, tris et regroupements dans traitements.py.
+"""
+
 STUDENT_SELECT = """
 SELECT
     e.id,
@@ -141,4 +147,35 @@ SELECT
 FROM inscription_club ic
 JOIN club c ON c.id = ic.club_id
 JOIN eleve e ON e.id = ic.eleve_id
+"""
+
+ENTREPRISE_SELECT = """
+SELECT
+    e.id,
+    e.nom,
+    e.secteur,
+    e.ville,
+    e.email_contact,
+    e.telephone
+FROM entreprise e
+"""
+
+ALTERNANCE_SELECT = """
+SELECT
+    a.id,
+    a.eleve_id,
+    el.nom AS eleve_nom,
+    a.entreprise_id,
+    en.nom AS entreprise_nom,
+    en.secteur AS entreprise_secteur,
+    en.ville AS entreprise_ville,
+    a.type_contrat,
+    a.poste,
+    a.rythme,
+    a.date_debut,
+    a.date_fin,
+    a.salaire_mensuel
+FROM alternance a
+JOIN eleve el ON el.id = a.eleve_id
+JOIN entreprise en ON en.id = a.entreprise_id
 """

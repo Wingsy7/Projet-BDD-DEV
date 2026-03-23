@@ -10,25 +10,37 @@ Le projet est separe en 2 parties :
 - la base de donnees MySQL
 - l'API + le menu admin en Python
 
+J'ai essaye de garder une structure assez simple pour pouvoir la relire facilement.
+Si on veut comprendre le projet dans l'ordre, le plus simple est de lire :
+
+1. `sql/base.sql`
+2. `sql/donnees.sql`
+3. `sql/requetes.sql`
+4. `api/app/requetes.py`
+5. `api/app/bdd.py`
+6. `api/app/traitements.py`
+7. `api/app/routes.py`
+8. `admin_cli/menu.py`
+
 
 ## Contenu du dossier
 
-- `sql/creation_bdd.sql` : script de creation de la base
-- `sql/donnees_depart.sql` : les donnees que j'ai mises pour tester
-- `sql/requetes_du_tp.sql` : les requetes demandees dans le sujet SQL
-- `sql/procedure_et_triggers.sql` : la procedure stockee et les triggers
-- `sql/export_final.sql` : l'export final de la base
-- `api/app/api.py` : les routes de l'API
-- `api/app/gestion_ecole.py` : la partie ou je fais les traitements en Python
-- `api/app/requetes_sql.py` : les requetes SQL simples utilisees par l'API
-- `admin_cli/menu_admin.py` : le menu en ligne de commande
-- `admin_cli/client_api.py` : les requetes HTTP avec `requests`
-- `livrables/schema_bdd_ecole.png` : le schema de la base
-- `scripts/installer_dependances.ps1` : script d'installation Python
-- `scripts/recreer_bdd.ps1` : script pour recreer la base
-- `scripts/lancer_api.ps1` : script pour lancer l'API
-- `scripts/lancer_menu.ps1` : script pour lancer le menu admin
-- `scripts/verifier_projet.ps1` : un script pour verifier vite le projet
+- `sql/base.sql` : script de creation de la base
+- `sql/donnees.sql` : les donnees que j'ai mises pour tester
+- `sql/requetes.sql` : les requetes demandees dans le sujet SQL
+- `sql/automatismes.sql` : la procedure stockee et les triggers
+- `sql/export.sql` : l'export final de la base
+- `api/app/routes.py` : les routes de l'API
+- `api/app/traitements.py` : la partie ou je fais les traitements en Python
+- `api/app/requetes.py` : les requetes SQL simples utilisees par l'API
+- `admin_cli/menu.py` : le menu en ligne de commande
+- `admin_cli/client.py` : les requetes HTTP avec `requests`
+- `livrables/schema_ecole.png` : le schema de la base
+- `scripts/installer.ps1` : script d'installation Python
+- `scripts/refaire_bdd.ps1` : script pour recreer la base
+- `scripts/demarrer_api.ps1` : script pour lancer l'API
+- `scripts/demarrer_menu.ps1` : script pour lancer le menu admin
+- `scripts/verifier.ps1` : un script pour verifier vite le projet
 
 ## Fonctionnalite supplementaire : Clubs de l'ecole
 
@@ -76,32 +88,75 @@ Le menu admin permet de gerer les clubs et les inscriptions via l'API :
 - Creer, modifier, supprimer un club
 - Inscrire un eleve a un club, modifier ou supprimer une inscription
 
+## Ajout en plus : Alternance
+
+J'ai aussi ajoute un petit suivi d'alternance avec les entreprises.
+
+### Tables ajoutees
+
+- `entreprise` : stocke les entreprises partenaires
+  - `nom`
+  - `secteur`
+  - `ville`
+  - `email_contact`
+  - `telephone`
+
+- `alternance` : lie un eleve a une entreprise avec les infos du contrat
+  - `eleve_id`
+  - `entreprise_id`
+  - `type_contrat`
+  - `poste`
+  - `rythme`
+  - `date_debut`
+  - `date_fin`
+  - `salaire_mensuel`
+
+### Routes API ajoutees
+
+- `GET /entreprises`
+- `POST /entreprises`
+- `PUT /entreprises/{entreprise_id}`
+- `DELETE /entreprises/{entreprise_id}`
+- `GET /alternances`
+- `GET /eleve/{eleve_id}/alternance`
+- `POST /alternances`
+- `PUT /alternances/{alternance_id}`
+- `DELETE /alternances/{alternance_id}`
+
+### Menu admin
+
+Le menu permet maintenant aussi de :
+- lister les entreprises
+- creer, modifier, supprimer une entreprise
+- lister les contrats d'alternance
+- creer, modifier, supprimer une alternance
+
 ## Installation
 
 Depuis le dossier `projet-ecole-avance` :
 ```powershell
-.\scripts\installer_dependances.ps1
+.\scripts\installer.ps1
 ```
 
 Si besoin, on peut forcer un interpreteur Python avec une variable d'environnement :
 ```powershell
 $env:SCHOOL_PYTHON = "C:\chemin\vers\python.exe"
-.\scripts\installer_dependances.ps1
+.\scripts\installer.ps1
 ```
 
 ## Mise en place de la base
 
 Le plus simple :
 ```powershell
-.\scripts\recreer_bdd.ps1
+.\scripts\refaire_bdd.ps1
 ```
 
 On peut aussi lancer les fichiers SQL a la main dans cet ordre :
 
-1. `sql/creation_bdd.sql`
-2. `sql/procedure_et_triggers.sql`
-3. `sql/donnees_depart.sql`
-4. `sql/requetes_du_tp.sql` si on veut montrer les requetes
+1. `sql/base.sql`
+2. `sql/automatismes.sql`
+3. `sql/donnees.sql`
+4. `sql/requetes.sql` si on veut montrer les requetes
 
 La base s'appelle actuellement `cozma_miroslav`.
 Si besoin, il faut juste changer ce nom pour mettre exactement le nom du groupe demande.
@@ -128,7 +183,7 @@ Le plus simple est de partir de `.env.example`.
 
 ## Lancer l'API
 ```powershell
-.\scripts\lancer_api.ps1
+.\scripts\demarrer_api.ps1
 ```
 
 Ensuite on peut ouvrir Swagger ici :
@@ -138,12 +193,12 @@ http://127.0.0.1:8000/docs
 
 ## Lancer le menu admin
 ```powershell
-.\scripts\lancer_menu.ps1
+.\scripts\demarrer_menu.ps1
 ```
 
 ## Verifier vite fait
 ```powershell
-& ".\scripts\verifier_projet.ps1"
+& ".\scripts\verifier.ps1"
 ```
 
 Je l'ai surtout garde pour verifier rapidement que la base, l'API et le menu tournent encore ensemble.

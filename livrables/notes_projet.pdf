@@ -10,7 +10,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 2201 >>
+<< /Length 2171 >>
 stream
 BT
 /F1 11 Tf
@@ -97,13 +97,13 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(- creation_bdd.sql pour les tables et les relations) Tj
+(- base.sql pour les tables et les relations) Tj
 0 -15 Td
-(- donnees_depart.sql pour avoir un vrai jeu de test) Tj
+(- donnees.sql pour avoir un vrai jeu de test) Tj
 0 -15 Td
-(- requetes_du_tp.sql pour toutes les requetes demandees) Tj
+(- requetes.sql pour toutes les requetes demandees) Tj
 0 -15 Td
-(- procedure_et_triggers.sql pour la procedure stockee et les triggers) Tj
+(- automatismes.sql pour la procedure stockee et les triggers) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -224,7 +224,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 2361 >>
+<< /Length 2348 >>
 stream
 BT
 /F1 11 Tf
@@ -313,15 +313,15 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(- api.py pour les routes) Tj
+(- routes.py pour les routes) Tj
 0 -15 Td
-(- gestion_ecole.py pour les traitements) Tj
+(- traitements.py pour les traitements) Tj
 0 -15 Td
-(- requetes_sql.py pour les requetes simples) Tj
+(- requetes.py pour les requetes simples) Tj
 0 -15 Td
-(- connexion_bdd.py pour la connexion a MySQL) Tj
+(- bdd.py pour la connexion a MySQL) Tj
 0 -15 Td
-(- modeles.py pour les modeles FastAPI) Tj
+(- schemas.py pour les modeles FastAPI) Tj
 0 -15 Td
 () Tj
 ET
@@ -592,19 +592,19 @@ xref
 0000000064 00000 n 
 0000000153 00000 n 
 0000000280 00000 n 
-0000002533 00000 n 
-0000002660 00000 n 
-0000004746 00000 n 
-0000004873 00000 n 
-0000007286 00000 n 
-0000007414 00000 n 
-0000009603 00000 n 
-0000009732 00000 n 
-0000011886 00000 n 
-0000012015 00000 n 
-0000012741 00000 n 
+0000002503 00000 n 
+0000002630 00000 n 
+0000004716 00000 n 
+0000004843 00000 n 
+0000007243 00000 n 
+0000007371 00000 n 
+0000009560 00000 n 
+0000009689 00000 n 
+0000011843 00000 n 
+0000011972 00000 n 
+0000012698 00000 n 
 trailer
 << /Size 16 /Root 1 0 R >>
 startxref
-12812
+12769
 %%EOF

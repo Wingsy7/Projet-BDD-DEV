@@ -1,5 +1,7 @@
 USE cozma_miroslav;
 
+-- 1. Specialites, promotions, cours et profs
+
 INSERT INTO specialite (id, nom) VALUES
     (1, 'Developpement'),
     (2, 'Cybersecurite'),
@@ -38,6 +40,13 @@ INSERT INTO club (id, nom, categorie, budget_annuel, responsable_prof_id) VALUES
     (1, 'Club Robotique', 'Technique', 2500.00, 1),
     (2, 'Club Basket', 'Sport', 1800.00, 4),
     (3, 'Club CTF', 'Cyber', 2200.00, 2);
+
+INSERT INTO entreprise (id, nom, secteur, ville, email_contact, telephone) VALUES
+    (1, 'NovaTech Solutions', 'Developpement logiciel', 'Paris', 'contact@novatech.local', '01 45 22 10 10'),
+    (2, 'CyberWall', 'Cybersecurite', 'Lille', 'recrutement@cyberwall.local', '03 20 11 54 20'),
+    (3, 'DataPulse', 'Data et IA', 'Lyon', 'talents@datapulse.local', '04 78 33 41 90');
+
+-- 2. Eleves
 
 INSERT INTO eleve (id, nom, email, age, promotion_id) VALUES
     (1, 'Julie Bernard', 'julie.bernard@ecole.local', 19, 1),
@@ -81,6 +90,8 @@ UPDATE dossier
 SET infos = 'excellent investissement'
 WHERE eleve_id = 8;
 
+-- 3. Cours suivis par les eleves
+
 INSERT INTO eleve_cours (eleve_id, cours_id) VALUES
     (1, 1), (1, 2), (1, 4), (1, 6),
     (2, 1), (2, 2), (2, 6),
@@ -90,6 +101,8 @@ INSERT INTO eleve_cours (eleve_id, cours_id) VALUES
     (6, 4), (6, 5), (6, 6),
     (7, 1), (7, 6),
     (8, 1), (8, 2), (8, 4), (8, 6);
+
+-- 4. Seances, absences et notes
 
 INSERT INTO instance_cours (id, cours_id, prof_id, date_cours) VALUES
     (1, 1, 1, '2026-02-02 09:00:00'),
@@ -129,6 +142,8 @@ INSERT INTO note (id, eleve_id, cours_id, prof_id, valeur, commentaire) VALUES
     (16, 8, 2, 1, 16.00, 'autonome'),
     (17, 8, 4, 3, 15.50, 'maitrise solide');
 
+-- 5. Clubs et alternance
+
 INSERT INTO inscription_club (id, club_id, eleve_id, role_membre, date_inscription) VALUES
     (1, 1, 1, 'presidente', '2026-01-10'),
     (2, 1, 8, 'membre', '2026-01-12'),
@@ -137,5 +152,23 @@ INSERT INTO inscription_club (id, club_id, eleve_id, role_membre, date_inscripti
     (5, 3, 3, 'membre', '2026-01-15'),
     (6, 3, 4, 'membre', '2026-01-16'),
     (7, 3, 2, 'membre', '2026-01-20');
+
+INSERT INTO alternance (
+    id,
+    eleve_id,
+    entreprise_id,
+    type_contrat,
+    poste,
+    rythme,
+    date_debut,
+    date_fin,
+    salaire_mensuel
+) VALUES
+    (1, 1, 1, 'Apprentissage', 'Developpeuse API junior', '3 semaines entreprise / 1 semaine ecole', '2026-09-01', '2027-08-31', 1280.00),
+    (2, 3, 2, 'Professionnalisation', 'Analyste SOC junior', '2 semaines entreprise / 1 semaine ecole', '2026-09-15', '2027-09-14', 1400.00),
+    (3, 5, 3, 'Apprentissage', 'Data analyst junior', '4 jours entreprise / 1 jour ecole', '2026-10-01', '2027-09-30', 1350.00),
+    (4, 8, 1, 'Apprentissage', 'Developpeur backend junior', '3 semaines entreprise / 1 semaine ecole', '2026-09-01', '2027-08-31', 1450.00);
+
+-- On remplit la table de classement a la fin
 
 CALL sp_recalculer_classement_eleves();

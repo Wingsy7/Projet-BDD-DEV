@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-. (Join-Path $PSScriptRoot "outils.ps1")
+. (Join-Path $PSScriptRoot "commun.ps1")
 
 Import-ProjectEnv
 
@@ -10,9 +10,9 @@ $dbName = Get-EnvValue "SCHOOL_DB_NAME" "cozma_miroslav"
 
 Write-Host ""
 Write-Host "== Reset base =="
-Invoke-SqlFile (Join-Path $projectRoot "sql\creation_bdd.sql")
-Invoke-SqlFile (Join-Path $projectRoot "sql\procedure_et_triggers.sql")
-Invoke-SqlFile (Join-Path $projectRoot "sql\donnees_depart.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\base.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\automatismes.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\donnees.sql")
 
 Write-Host ""
 Write-Host "== SQL smoke =="
@@ -21,6 +21,8 @@ USE $dbName;
 SELECT COUNT(*) AS nb_eleves FROM eleve;
 SELECT COUNT(*) AS nb_notes FROM note;
 SELECT COUNT(*) AS nb_clubs FROM club;
+SELECT COUNT(*) AS nb_entreprises FROM entreprise;
+SELECT COUNT(*) AS nb_alternances FROM alternance;
 SELECT e.nom, c.score, c.moyenne_generale
 FROM classement_eleve c
 JOIN eleve e ON e.id = c.eleve_id
@@ -71,7 +73,7 @@ if (Test-Path $stderrLog) { Remove-Item $stderrLog -Force }
 
 $proc = Start-Process `
     -FilePath $python `
-    -ArgumentList "-m", "uvicorn", "app.api:app", "--host", "127.0.0.1", "--port", $port, "--app-dir", "api" `
+    -ArgumentList "-m", "uvicorn", "app.routes:app", "--host", "127.0.0.1", "--port", $port, "--app-dir", "api" `
     -WorkingDirectory $projectRoot `
     -RedirectStandardOutput $stdoutLog `
     -RedirectStandardError $stderrLog `
@@ -103,6 +105,8 @@ summary = {
     "notes_eleve_1": len(req("/notes/1")),
     "bonne_notes_top3": [item["nom"] for item in req("/eleve/bonne_notes")[:3]],
     "absence_eleve_2": req("/eleve/2/absence"),
+    "entreprises_count": len(req("/entreprises")),
+    "alternance_eleve_1": req("/eleve/1/alternance"),
 }
 print(json.dumps(summary, indent=2, ensure_ascii=True))
 "@
@@ -110,7 +114,7 @@ print(json.dumps(summary, indent=2, ensure_ascii=True))
 
     Write-Host ""
     Write-Host "== CLI smoke =="
-    @("1", "25", "1", "0") | & $python ".\admin_cli\menu_admin.py" | Select-Object -First 35 | Out-Host
+    @("1", "25", "1", "0") | & $python ".\admin_cli\menu.py" | Select-Object -First 35 | Out-Host
 }
 finally {
     if (-not $proc.HasExited) {
@@ -120,9 +124,9 @@ finally {
 
 Write-Host ""
 Write-Host "== Reset final =="
-Invoke-SqlFile (Join-Path $projectRoot "sql\creation_bdd.sql")
-Invoke-SqlFile (Join-Path $projectRoot "sql\procedure_et_triggers.sql")
-Invoke-SqlFile (Join-Path $projectRoot "sql\donnees_depart.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\base.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\automatismes.sql")
+Invoke-SqlFile (Join-Path $projectRoot "sql\donnees.sql")
 
 Write-Host ""
 Write-Host "== OK =="

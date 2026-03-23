@@ -2,8 +2,10 @@ from typing import Annotated
 
 from fastapi import FastAPI, Query
 
-from .gestion_ecole import GestionEcole
-from .modeles import (
+from .traitements import GestionEcole
+from .schemas import (
+    AlternanceCreate,
+    AlternanceUpdate,
     ClubCreate,
     ClubInscriptionCreate,
     ClubInscriptionUpdate,
@@ -11,6 +13,8 @@ from .modeles import (
     DossierUpdate,
     EleveCreate,
     EleveUpdate,
+    EntrepriseCreate,
+    EntrepriseUpdate,
     InstanceCoursCreate,
     InstanceCoursUpdate,
     NoteCreate,
@@ -28,6 +32,8 @@ gestion = GestionEcole()
 def health() -> dict:
     return {"status": "ok"}
 
+
+# Routes eleves
 
 @app.get("/eleve")
 def list_eleves() -> list[dict]:
@@ -59,6 +65,11 @@ def get_eleve_clubs(eleve_id: int) -> list[dict]:
     return gestion.list_eleve_clubs(eleve_id)
 
 
+@app.get("/eleve/{eleve_id}/alternance")
+def get_eleve_alternance(eleve_id: int) -> list[dict]:
+    return gestion.list_eleve_alternances(eleve_id)
+
+
 @app.get("/eleve/{eleve_id}")
 def get_eleve(eleve_id: int) -> dict:
     return gestion.get_eleve(eleve_id)
@@ -78,6 +89,8 @@ def update_eleve(eleve_id: int, payload: EleveUpdate) -> dict:
 def delete_eleve(eleve_id: int) -> dict:
     return gestion.delete_eleve(eleve_id)
 
+
+# Routes notes
 
 @app.get("/notes/{eleve_id}")
 def get_notes_for_eleve(eleve_id: int) -> list[dict]:
@@ -104,6 +117,8 @@ def create_note(payload: NoteCreate) -> dict:
 def update_note(note_id: int, payload: NoteUpdate) -> dict:
     return gestion.update_note(note_id, payload.model_dump())
 
+
+# Routes profs et dossiers
 
 @app.get("/prof")
 def list_profs() -> list[dict]:
@@ -139,6 +154,8 @@ def list_dossiers() -> list[dict]:
 def update_dossier(eleve_id: int, payload: DossierUpdate) -> dict:
     return gestion.update_dossier(eleve_id, payload.model_dump())
 
+
+# Routes instances, promotions, cours
 
 @app.get("/instances")
 def list_instances() -> list[dict]:
@@ -179,6 +196,8 @@ def list_specialite_cours(specialite_id: int) -> list[dict]:
 def list_specialite_promotions(specialite_id: int) -> list[dict]:
     return gestion.list_specialite_promotions(specialite_id)
 
+
+# Routes clubs
 
 @app.get("/clubs")
 def list_clubs() -> list[dict]:
@@ -223,3 +242,45 @@ def update_club_inscription(inscription_id: int, payload: ClubInscriptionUpdate)
 @app.delete("/club-inscriptions/{inscription_id}")
 def delete_club_inscription(inscription_id: int) -> dict:
     return gestion.delete_club_inscription(inscription_id)
+
+
+# Routes entreprises et alternance
+
+@app.get("/entreprises")
+def list_entreprises() -> list[dict]:
+    return gestion.list_entreprises()
+
+
+@app.post("/entreprises")
+def create_entreprise(payload: EntrepriseCreate) -> dict:
+    return gestion.create_entreprise(payload.model_dump())
+
+
+@app.put("/entreprises/{entreprise_id}")
+def update_entreprise(entreprise_id: int, payload: EntrepriseUpdate) -> dict:
+    return gestion.update_entreprise(entreprise_id, payload.model_dump())
+
+
+@app.delete("/entreprises/{entreprise_id}")
+def delete_entreprise(entreprise_id: int) -> dict:
+    return gestion.delete_entreprise(entreprise_id)
+
+
+@app.get("/alternances")
+def list_alternances() -> list[dict]:
+    return gestion.list_alternances()
+
+
+@app.post("/alternances")
+def create_alternance(payload: AlternanceCreate) -> dict:
+    return gestion.create_alternance(payload.model_dump())
+
+
+@app.put("/alternances/{alternance_id}")
+def update_alternance(alternance_id: int, payload: AlternanceUpdate) -> dict:
+    return gestion.update_alternance(alternance_id, payload.model_dump())
+
+
+@app.delete("/alternances/{alternance_id}")
+def delete_alternance(alternance_id: int) -> dict:
+    return gestion.delete_alternance(alternance_id)

@@ -1,5 +1,6 @@
 USE cozma_miroslav;
 
+-- 1. Requetes simples
 -- Liste de tous les eleves (nom et age)
 SELECT nom, age
 FROM eleve;
@@ -44,6 +45,7 @@ JOIN cours c ON c.id = n.cours_id
 LEFT JOIN prof p ON p.id = n.prof_id
 WHERE e.nom = 'Julie Bernard';
 
+-- 2. Requetes avec calculs
 -- Duree moyenne des absences
 SELECT AVG(duree_minutes) AS duree_moyenne_absence
 FROM absence;
@@ -82,6 +84,7 @@ GROUP BY e.id, e.nom, c.id, c.nom
 HAVING AVG(n.valeur) > 10
 ORDER BY moyenne_eleve_cours DESC;
 
+-- 3. Sous-requetes
 -- Sous requete : nombre d'eleves ayant plus de 60 minutes d'absence
 SELECT COUNT(*) AS nb_eleves_plus_60_minutes
 FROM (
@@ -122,7 +125,7 @@ LEFT JOIN promotion p ON p.specialite_id = s.id
 LEFT JOIN eleve e ON e.promotion_id = p.id
 GROUP BY s.id, s.nom;
 
--- Ajouter des donnees
+-- 4. Ajouter des donnees
 INSERT INTO prof (nom, email, age)
 VALUES ('Emma Rossi', 'emma.rossi@ecole.local', 33);
 
@@ -152,7 +155,7 @@ VALUES (
     (SELECT id FROM cours WHERE nom = 'Docker fondamental')
 );
 
--- Modifier des donnees
+-- 5. Modifier des donnees
 UPDATE prof
 SET age = 34
 WHERE email = 'emma.rossi@ecole.local';
@@ -161,7 +164,7 @@ UPDATE cours
 SET specialite_id = 3
 WHERE nom = 'Docker fondamental';
 
--- Supprimer des donnees
+-- 6. Supprimer des donnees
 DELETE FROM note
 WHERE id = 4;
 
@@ -172,3 +175,24 @@ DELETE a
 FROM absence a
 JOIN eleve e ON e.id = a.eleve_id
 WHERE e.nom = 'Martin Lopez';
+
+-- 7. Bonus alternance
+-- Contrats eleves / entreprises
+SELECT
+    e.nom AS eleve,
+    en.nom AS entreprise,
+    a.type_contrat,
+    a.poste,
+    a.rythme
+FROM alternance a
+JOIN eleve e ON e.id = a.eleve_id
+JOIN entreprise en ON en.id = a.entreprise_id
+ORDER BY en.nom, e.nom;
+
+SELECT
+    en.nom AS entreprise,
+    COUNT(a.id) AS nb_alternants
+FROM entreprise en
+LEFT JOIN alternance a ON a.entreprise_id = en.id
+GROUP BY en.id, en.nom
+ORDER BY nb_alternants DESC, en.nom ASC;

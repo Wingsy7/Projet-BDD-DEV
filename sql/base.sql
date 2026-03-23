@@ -5,6 +5,8 @@ COLLATE utf8mb4_unicode_ci;
 
 USE cozma_miroslav;
 
+-- Partie 1 : ce qui sert a organiser l'ecole
+
 CREATE TABLE specialite (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(120) NOT NULL UNIQUE
@@ -53,6 +55,8 @@ CREATE TABLE prof_cours (
         ON UPDATE CASCADE
 );
 
+-- Partie 2 : les eleves et leur suivi
+
 CREATE TABLE eleve (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(150) NOT NULL,
@@ -90,6 +94,8 @@ CREATE TABLE eleve_cours (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+-- Partie 3 : les seances, les absences et les notes
 
 CREATE TABLE instance_cours (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -144,6 +150,8 @@ CREATE TABLE note (
         ON UPDATE CASCADE
 );
 
+-- Partie 4 : fonctionnalites en plus
+
 CREATE TABLE club (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(150) NOT NULL UNIQUE,
@@ -172,6 +180,38 @@ CREATE TABLE inscription_club (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+CREATE TABLE entreprise (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(150) NOT NULL UNIQUE,
+    secteur VARCHAR(120) NOT NULL,
+    ville VARCHAR(120) NOT NULL,
+    email_contact VARCHAR(190) NULL,
+    telephone VARCHAR(40) NULL
+);
+
+CREATE TABLE alternance (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    eleve_id INT NOT NULL,
+    entreprise_id INT NOT NULL,
+    type_contrat VARCHAR(80) NOT NULL,
+    poste VARCHAR(150) NOT NULL,
+    rythme VARCHAR(120) NOT NULL,
+    date_debut DATE NOT NULL,
+    date_fin DATE NULL,
+    salaire_mensuel DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    UNIQUE KEY uq_alternance_contrat (eleve_id, entreprise_id, date_debut),
+    CONSTRAINT fk_alternance_eleve
+        FOREIGN KEY (eleve_id) REFERENCES eleve(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_alternance_entreprise
+        FOREIGN KEY (entreprise_id) REFERENCES entreprise(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- Partie 5 : table remplie par la procedure de classement
 
 CREATE TABLE classement_eleve (
     eleve_id INT PRIMARY KEY,

@@ -1,9 +1,9 @@
 Add-Type -AssemblyName System.Drawing
 
-$outputPath = Join-Path $PSScriptRoot "..\\livrables\\schema_bdd_ecole.png"
+$outputPath = Join-Path $PSScriptRoot "..\\livrables\\schema_ecole.png"
 $outputPath = [System.IO.Path]::GetFullPath($outputPath)
 
-$bitmap = New-Object System.Drawing.Bitmap 2400, 1700
+$bitmap = New-Object System.Drawing.Bitmap 2400, 1950
 $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
 $graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
 $graphics.Clear([System.Drawing.Color]::FromArgb(248, 248, 244))
@@ -35,6 +35,8 @@ $tables = @(
     @{ Name = "absence"; X = 1870; Y = 430; Fields = @("id PK", "eleve_id FK", "instance_cours_id FK", "duree_minutes", "justificatif") },
     @{ Name = "club"; X = 640; Y = 920; Fields = @("id PK", "nom", "categorie", "budget_annuel", "responsable_prof_id FK?") },
     @{ Name = "inscription_club"; X = 1260; Y = 980; Fields = @("id PK", "club_id FK", "eleve_id FK", "role_membre", "date_inscription") },
+    @{ Name = "entreprise"; X = 640; Y = 1230; Fields = @("id PK", "nom", "secteur", "ville", "email_contact", "telephone") },
+    @{ Name = "alternance"; X = 1260; Y = 1290; Fields = @("id PK", "eleve_id FK", "entreprise_id FK", "type_contrat", "poste", "rythme", "date_debut", "date_fin", "salaire_mensuel") },
     @{ Name = "classement_eleve"; X = 1870; Y = 760; Fields = @("eleve_id PK/FK", "score", "moyenne_generale", "total_absence_minutes", "a_un_avertissement", "updated_at") }
 )
 
@@ -91,6 +93,8 @@ $relations = @(
     @{ From = "prof"; To = "club"; Start = "bottom"; End = "top" },
     @{ From = "club"; To = "inscription_club"; Start = "right"; End = "left" },
     @{ From = "eleve"; To = "inscription_club"; Start = "bottom"; End = "top" },
+    @{ From = "entreprise"; To = "alternance"; Start = "right"; End = "left" },
+    @{ From = "eleve"; To = "alternance"; Start = "bottom"; End = "top" },
     @{ From = "eleve"; To = "classement_eleve"; Start = "right"; End = "left" }
 )
 
@@ -116,7 +120,7 @@ foreach ($relation in $relations) {
 }
 
 $legendFont = New-Object System.Drawing.Font("Segoe UI", 10)
-$graphics.DrawString("PK = cle primaire | FK = cle etrangere | ? = nullable", $legendFont, $textBrush, 40, 1620)
+$graphics.DrawString("PK = cle primaire | FK = cle etrangere | ? = nullable", $legendFont, $textBrush, 40, 1870)
 
 $bitmap.Save($outputPath, [System.Drawing.Imaging.ImageFormat]::Png)
 $graphics.Dispose()

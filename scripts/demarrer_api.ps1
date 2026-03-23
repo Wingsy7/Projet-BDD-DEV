@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-. (Join-Path $PSScriptRoot "outils.ps1")
+. (Join-Path $PSScriptRoot "commun.ps1")
 
 Import-ProjectEnv
 
@@ -12,7 +12,7 @@ $port = $uri.Port
 
 Push-Location $projectRoot
 try {
-    & $python -m uvicorn app.api:app --host $hostName --port $port --app-dir api --reload
+    & $python -m uvicorn app.routes:app --host $hostName --port $port --app-dir api --reload
 }
 finally {
     Pop-Location

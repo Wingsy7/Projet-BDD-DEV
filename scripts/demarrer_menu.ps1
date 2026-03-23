@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-. (Join-Path $PSScriptRoot "outils.ps1")
+. (Join-Path $PSScriptRoot "commun.ps1")
 
 Import-ProjectEnv
 
@@ -8,7 +8,7 @@ $python = Get-PythonPath
 
 Push-Location $projectRoot
 try {
-    & $python -m pip install -r requirements.txt
+    & $python .\admin_cli\menu.py
 }
 finally {
     Pop-Location

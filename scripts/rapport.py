@@ -3,8 +3,8 @@ import textwrap
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-SOURCE_PATH = BASE_DIR / "livrables" / "explication_projet.txt"
-OUTPUT_PATH = BASE_DIR / "livrables" / "explication_projet.pdf"
+SOURCE_PATH = BASE_DIR / "livrables" / "notes_projet.txt"
+OUTPUT_PATH = BASE_DIR / "livrables" / "notes_projet.pdf"
 
 PAGE_WIDTH = 595
 PAGE_HEIGHT = 842

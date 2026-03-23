@@ -1,14 +1,14 @@
-from collections import defaultdict
-
 from fastapi import HTTPException
 
-from .connexion_bdd import execute, fetch_all
-from .requetes_sql import (
+from .bdd import execute, fetch_all
+from .requetes import (
     ABSENCE_SELECT,
+    ALTERNANCE_SELECT,
     CLUB_INSCRIPTION_SELECT,
     CLUB_SELECT,
     COURSE_SELECT,
     DOSSIER_SELECT,
+    ENTREPRISE_SELECT,
     INSTANCE_SELECT,
     NOTE_SELECT,
     PROF_SELECT,
@@ -18,6 +18,14 @@ from .requetes_sql import (
 
 
 class GestionEcole:
+    # Cette classe centralise les lectures et les CRUD de l'API.
+    # L'idee est simple :
+    # 1. on lit des donnees en base
+    # 2. on les retravaille un peu en Python si besoin
+    # 3. on renvoie un format propre a l'API
+
+    # Petites fonctions utilitaires
+
     def _format_eleve_admin(self, row: dict) -> dict:
         return {
             "id": row["id"],
@@ -57,6 +65,10 @@ class GestionEcole:
         row["valeur"] = float(row["valeur"])
         return row
 
+    def _format_alternance(self, row: dict) -> dict:
+        row["salaire_mensuel"] = float(row["salaire_mensuel"])
+        return row
+
     def _verifier(self, item: dict | None, message: str) -> dict:
         if item is None:
             raise HTTPException(status_code=404, detail=message)
@@ -75,6 +87,8 @@ class GestionEcole:
         sql = ", ".join(f"{key} = %s" for key in values)
         params = tuple(values.values())
         return sql, params
+
+    # Lectures simples
 
     def list_eleves(self) -> list[dict]:
         return [self._format_eleve_simple(row) for row in fetch_all(STUDENT_SELECT)]
@@ -132,17 +146,18 @@ class GestionEcole:
             or eleve["dossier"]["avertissement_comportement"]
         ]
 
+    # Calculs faits en Python
+
     def list_eleves_bonne_notes(self) -> list[dict]:
         grouped: dict[int, dict] = {}
         for row in self.list_notes_admin():
-            current = grouped.setdefault(
-                row["eleve_id"],
-                {
+            eleve_id = row["eleve_id"]
+            if eleve_id not in grouped:
+                grouped[eleve_id] = {
                     "nom": row["eleve_nom"],
                     "notes": [],
-                },
-            )
-            current["notes"].append(row["valeur"])
+                }
+            grouped[eleve_id]["notes"].append(row["valeur"])
 
         results = []
         for values in grouped.values():
@@ -167,14 +182,12 @@ class GestionEcole:
             prof_id = row["prof_id"]
             if prof_id is None:
                 continue
-            current = grouped.setdefault(
-                prof_id,
-                {
+            if prof_id not in grouped:
+                grouped[prof_id] = {
                     "nom": row["prof_nom"],
                     "notes": [],
-                },
-            )
-            current["notes"].append(row["valeur"])
+                }
+            grouped[prof_id]["notes"].append(row["valeur"])
 
         results = []
         for values in grouped.values():
@@ -210,13 +223,15 @@ class GestionEcole:
             raise HTTPException(status_code=400, detail="Le parametre 'par' est invalide.")
 
         key_name = choices[par]
-        grouped: dict[str, list[dict]] = defaultdict(list)
+        grouped: dict[str, list[dict]] = {}
 
         for row in self.list_notes_admin():
             label = row[key_name] or "Non renseigne"
+            if label not in grouped:
+                grouped[label] = []
             grouped[label].append(self._format_note_api(row))
 
-        return dict(grouped)
+        return grouped
 
     def list_instances(self) -> list[dict]:
         return fetch_all(INSTANCE_SELECT)
@@ -231,12 +246,15 @@ class GestionEcole:
     def list_clubs(self) -> list[dict]:
         clubs = fetch_all(CLUB_SELECT)
         inscriptions = fetch_all(CLUB_INSCRIPTION_SELECT)
-        member_count_by_club: dict[int, int] = defaultdict(int)
+        member_count_by_club: dict[int, int] = {}
         for inscription in inscriptions:
-            member_count_by_club[inscription["club_id"]] += 1
+            club_id = inscription["club_id"]
+            if club_id not in member_count_by_club:
+                member_count_by_club[club_id] = 0
+            member_count_by_club[club_id] += 1
         for club in clubs:
             club["budget_annuel"] = float(club["budget_annuel"])
-            club["nombre_membres"] = member_count_by_club[club["id"]]
+            club["nombre_membres"] = member_count_by_club.get(club["id"], 0)
         return clubs
 
     def list_club_members(self, club_id: int) -> list[dict]:
@@ -265,8 +283,24 @@ class GestionEcole:
             if row["eleve_id"] == eleve_id
         ]
 
+    def list_entreprises(self) -> list[dict]:
+        return fetch_all(ENTREPRISE_SELECT)
+
+    def list_alternances(self) -> list[dict]:
+        return [self._format_alternance(row) for row in fetch_all(ALTERNANCE_SELECT)]
+
+    def list_eleve_alternances(self, eleve_id: int) -> list[dict]:
+        self.get_eleve(eleve_id)
+        return [
+            row
+            for row in self.list_alternances()
+            if row["eleve_id"] == eleve_id
+        ]
+
     def list_courses(self) -> list[dict]:
         return fetch_all(COURSE_SELECT)
+
+    # CRUD
 
     def create_eleve(self, payload: dict) -> dict:
         result = execute(
@@ -456,4 +490,97 @@ class GestionEcole:
         return {
             "message": "Inscription club supprimee.",
             "inscription": inscription,
+        }
+
+    def create_entreprise(self, payload: dict) -> dict:
+        result = execute(
+            """
+            INSERT INTO entreprise (nom, secteur, ville, email_contact, telephone)
+            VALUES (%s, %s, %s, %s, %s)
+            """,
+            (
+                payload["nom"],
+                payload["secteur"],
+                payload["ville"],
+                payload.get("email_contact"),
+                payload.get("telephone"),
+            ),
+        )
+        return self._trouver_par_id(
+            self.list_entreprises(),
+            result["lastrowid"],
+            "Entreprise introuvable.",
+        )
+
+    def update_entreprise(self, entreprise_id: int, payload: dict) -> dict:
+        self._trouver_par_id(self.list_entreprises(), entreprise_id, "Entreprise introuvable.")
+        sql, params = self._preparer_update(payload)
+        execute(f"UPDATE entreprise SET {sql} WHERE id = %s", params + (entreprise_id,))
+        return self._trouver_par_id(
+            self.list_entreprises(),
+            entreprise_id,
+            "Entreprise introuvable.",
+        )
+
+    def delete_entreprise(self, entreprise_id: int) -> dict:
+        entreprise = self._trouver_par_id(
+            self.list_entreprises(),
+            entreprise_id,
+            "Entreprise introuvable.",
+        )
+        execute("DELETE FROM entreprise WHERE id = %s", (entreprise_id,))
+        return {"message": "Entreprise supprimee.", "entreprise": entreprise}
+
+    def create_alternance(self, payload: dict) -> dict:
+        result = execute(
+            """
+            INSERT INTO alternance (
+                eleve_id,
+                entreprise_id,
+                type_contrat,
+                poste,
+                rythme,
+                date_debut,
+                date_fin,
+                salaire_mensuel
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            """,
+            (
+                payload["eleve_id"],
+                payload["entreprise_id"],
+                payload["type_contrat"],
+                payload["poste"],
+                payload["rythme"],
+                payload["date_debut"],
+                payload.get("date_fin"),
+                payload["salaire_mensuel"],
+            ),
+        )
+        return self._trouver_par_id(
+            self.list_alternances(),
+            result["lastrowid"],
+            "Alternance introuvable.",
+        )
+
+    def update_alternance(self, alternance_id: int, payload: dict) -> dict:
+        self._trouver_par_id(self.list_alternances(), alternance_id, "Alternance introuvable.")
+        sql, params = self._preparer_update(payload)
+        execute(f"UPDATE alternance SET {sql} WHERE id = %s", params + (alternance_id,))
+        return self._trouver_par_id(
+            self.list_alternances(),
+            alternance_id,
+            "Alternance introuvable.",
+        )
+
+    def delete_alternance(self, alternance_id: int) -> dict:
+        alternance = self._trouver_par_id(
+            self.list_alternances(),
+            alternance_id,
+            "Alternance introuvable.",
+        )
+        execute("DELETE FROM alternance WHERE id = %s", (alternance_id,))
+        return {
+            "message": "Alternance supprimee.",
+            "alternance": alternance,
         }
