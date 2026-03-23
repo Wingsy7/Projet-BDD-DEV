@@ -76,6 +76,12 @@ Le menu admin permet de gerer les clubs et les inscriptions via l'API :
 
 Depuis le dossier `projet-ecole-avance` :
 ```powershell
+$python = "C:\Users\cozma\AppData\Local\Python\pythoncore-3.14-64\python.exe"
+& $python -m pip install -r requirements.txt
+```
+
+Si la commande `python` fonctionne deja sur ta machine, on peut aussi faire plus court :
+```powershell
 python -m pip install -r requirements.txt
 ```
 
@@ -107,7 +113,8 @@ SCHOOL_DB_NAME=cozma_miroslav
 
 ## Lancer l'API
 ```powershell
-python -m uvicorn app.api:app --reload --app-dir api
+$python = "C:\Users\cozma\AppData\Local\Python\pythoncore-3.14-64\python.exe"
+& $python -m uvicorn app.api:app --reload --app-dir api
 ```
 
 Ensuite on peut ouvrir Swagger ici :
@@ -117,6 +124,13 @@ http://127.0.0.1:8000/docs
 
 ## Lancer le menu admin
 ```powershell
+$python = "C:\Users\cozma\AppData\Local\Python\pythoncore-3.14-64\python.exe"
+& $python admin_cli/menu_admin.py
+```
+
+Si `python` marche deja dans le terminal, cette version fonctionne aussi :
+```powershell
+python -m uvicorn app.api:app --reload --app-dir api
 python admin_cli/menu_admin.py
 ```
 
