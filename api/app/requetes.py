@@ -1,7 +1,7 @@
-"""Requetes SQL simples utilisees par l'API.
+"""Petites requetes SQL utilisees par l'API.
 
-Le principe du projet est de garder ici des SELECT assez simples,
-puis de faire les calculs, tris et regroupements dans traitements.py.
+Ici on garde surtout des SELECT simples.
+Les calculs et les tris sont faits dans traitements.py.
 """
 
 STUDENT_SELECT = """

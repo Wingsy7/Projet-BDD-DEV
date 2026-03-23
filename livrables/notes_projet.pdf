@@ -10,7 +10,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 2171 >>
+<< /Length 2093 >>
 stream
 BT
 /F1 11 Tf
@@ -19,9 +19,9 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(Ce document explique rapidement comment j'ai construit le projet, dans quel ordre) Tj
+(Ce document explique rapidement comment nous avons construit le projet, dans quel ordre) Tj
 0 -15 Td
-(je l'ai fait, et pourquoi j'ai pris certaines decisions.) Tj
+(nous l'avons fait, et pourquoi nous avons pris certaines decisions.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -41,21 +41,25 @@ BT
 0 -15 Td
 (L'idee generale etait de faire quelque chose de coherent entre la partie SQL et la) Tj
 0 -15 Td
-(partie API. Je ne voulais pas faire une API a part, donc j'ai d'abord pose la base.) Tj
+(partie API. Nous ne voulions pas faire une API a part, donc nous avons d'abord pose la) Tj
+0 -15 Td
+(base.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(2. PAR QUOI J'AI COMMENCE) Tj
+(2. PAR QUOI NOUS AVONS COMMENCE) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai commence par la base de donnees. Pour moi c'etait le plus logique parce que tout) Tj
+(Nous avons commence par la base de donnees. Pour nous c'etait le plus logique parce que) Tj
+0 -15 Td
+(tout) Tj
 0 -15 Td
 (le reste depend de la structure des tables.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Avant d'ecrire l'API, j'ai d'abord liste les elements importants du sujet :) Tj
+(Avant d'ecrire l'API, nous avons d'abord liste les elements importants du sujet :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -77,7 +81,9 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(Ensuite j'ai ajoute une fonctionnalite supplementaire pour aller un peu plus loin :) Tj
+(Ensuite nous avons ajoute une fonctionnalite supplementaire pour aller un peu plus loin) Tj
+0 -15 Td
+(:) Tj
 0 -15 Td
 (les clubs de l'ecole.) Tj
 0 -15 Td
@@ -87,13 +93,15 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(La premiere etape a ete de faire le schema SQL. J'ai essaye de creer une base simple) Tj
+(La premiere etape a ete de faire le schema SQL. Nous avons essaye de creer une base) Tj
+0 -15 Td
+(simple) Tj
 0 -15 Td
 (a comprendre, mais assez complete pour repondre a tout le sujet.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai separe la base en plusieurs fichiers :) Tj
+(Nous avons separe la base en plusieurs fichiers :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -102,14 +110,6 @@ BT
 (- donnees.sql pour avoir un vrai jeu de test) Tj
 0 -15 Td
 (- requetes.sql pour toutes les requetes demandees) Tj
-0 -15 Td
-(- automatismes.sql pour la procedure stockee et les triggers) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(J'ai choisi de faire des tables de liaison quand c'etait utile, par exemple :) Tj
-0 -15 Td
-() Tj
 ET
 endstream
 endobj
@@ -117,11 +117,19 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 2034 >>
+<< /Length 2064 >>
 stream
 BT
 /F1 11 Tf
 50 782 Td
+(- automatismes.sql pour la procedure stockee et les triggers) Tj
+0 -15 Td
+() Tj
+0 -15 Td
+(Nous avons choisi de faire des tables de liaison quand c'etait utile, par exemple :) Tj
+0 -15 Td
+() Tj
+0 -15 Td
 (- prof_cours) Tj
 0 -15 Td
 (- eleve_cours) Tj
@@ -130,7 +138,7 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(Pourquoi j'ai fait comme ca :) Tj
+(Pourquoi nous avons fait comme ca :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -142,17 +150,17 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(4. POURQUOI J'AI MIS DES DONNEES DE TEST) Tj
+(4. POURQUOI NOUS AVONS MIS DES DONNEES DE TEST) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai ajoute des donnees de depart assez variees pour que les requetes soient) Tj
+(Nous avons ajoute des donnees de depart assez variees pour que les requetes soient) Tj
 0 -15 Td
 (interessantes a montrer.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Par exemple, j'ai fait attention a avoir :) Tj
+(Par exemple, nous avons fait attention a avoir :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -180,13 +188,15 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(Une fois la base posee, j'ai fait les requetes du sujet. J'ai prefere faire cette) Tj
+(Une fois la base posee, nous avons fait les requetes du sujet. Nous avons prefere faire) Tj
+0 -15 Td
+(cette) Tj
 0 -15 Td
 (etape avant l'API pour verifier que le schema etait deja bon.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai fait :) Tj
+(Nous avons fait :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -207,7 +217,18 @@ BT
 () Tj
 0 -15 Td
 (- ca permettait de voir tout de suite si la base etait coherente) Tj
-0 -15 Td
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 2375 >>
+stream
+BT
+/F1 11 Tf
+50 782 Td
 (- si une requete etait compliquee a faire, c'etait souvent un signe qu'il fallait) Tj
 0 -15 Td
 (  revoir une relation ou une table) Tj
@@ -217,19 +238,8 @@ BT
 (6. LA PROCEDURE STOCKEE ET LES TRIGGERS) Tj
 0 -15 Td
 () Tj
-ET
-endstream
-endobj
-7 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 8 0 R >>
-endobj
-8 0 obj
-<< /Length 2348 >>
-stream
-BT
-/F1 11 Tf
-50 782 Td
-(Apres les requetes classiques, j'ai fait la procedure de classement des eleves.) Tj
+0 -15 Td
+(Apres les requetes classiques, nous avons fait la procedure de classement des eleves.) Tj
 0 -15 Td
 (L'idee etait de calculer un score a partir de la moyenne, des absences et des) Tj
 0 -15 Td
@@ -237,7 +247,7 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai ensuite ajoute 3 triggers demandes dans le sujet :) Tj
+(Nous avons ensuite ajoute 3 triggers demandes dans le sujet :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -251,7 +261,7 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(Cette partie m'a servi a montrer que la base ne fait pas seulement du stockage, mais) Tj
+(Cette partie nous a servi a montrer que la base ne fait pas seulement du stockage, mais) Tj
 0 -15 Td
 (qu'elle gere aussi certaines regles metier.) Tj
 0 -15 Td
@@ -261,11 +271,11 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(Quand la base etait stable, j'ai commence l'API avec FastAPI.) Tj
+(Quand la base etait stable, nous avons commence l'API avec FastAPI.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai fait ce choix parce que :) Tj
+(Nous avons fait ce choix parce que :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -277,7 +287,7 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai essaye de garder une idee importante du sujet :) Tj
+(Nous avons essaye de garder une idee importante du sujet :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -305,14 +315,27 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(8. POURQUOI J'AI SEPARE LES FICHIERS DE L'API) Tj
+(8. POURQUOI NOUS AVONS SEPARE LES FICHIERS DE L'API) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai separe l'API en plusieurs petits fichiers pour m'y retrouver plus facilement :) Tj
+(Nous avons separe l'API en plusieurs petits fichiers pour nous y retrouver plus) Tj
+0 -15 Td
+(facilement :) Tj
 0 -15 Td
 () Tj
-0 -15 Td
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 2098 >>
+stream
+BT
+/F1 11 Tf
+50 782 Td
 (- routes.py pour les routes) Tj
 0 -15 Td
 (- traitements.py pour les traitements) Tj
@@ -324,19 +347,10 @@ BT
 (- schemas.py pour les modeles FastAPI) Tj
 0 -15 Td
 () Tj
-ET
-endstream
-endobj
-9 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 10 0 R >>
-endobj
-10 0 obj
-<< /Length 2136 >>
-stream
-BT
-/F1 11 Tf
-50 782 Td
-(Je trouvais ca plus propre qu'un seul gros fichier, surtout quand j'ai commence a) Tj
+0 -15 Td
+(Nous trouvions ca plus propre qu'un seul gros fichier, surtout quand nous avons commence) Tj
+0 -15 Td
+(a) Tj
 0 -15 Td
 (ajouter les CRUD et les routes supplementaires.) Tj
 0 -15 Td
@@ -346,11 +360,13 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(Une fois l'API faite, j'ai ajoute le menu admin.) Tj
+(Une fois l'API faite, nous avons ajoute le menu admin.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Je l'ai fait apres l'API et pas avant, parce que le menu depend completement des routes.) Tj
+(Nous l'avons fait apres l'API et pas avant, parce que le menu depend completement des) Tj
+0 -15 Td
+(routes.) Tj
 0 -15 Td
 (Le menu envoie des requetes HTTP avec requests, donc il ne parle jamais directement a) Tj
 0 -15 Td
@@ -362,7 +378,7 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai essaye de faire un menu simple :) Tj
+(Nous avons essaye de faire un menu simple :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -378,7 +394,9 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai aussi fait en sorte que le menu affiche souvent les listes avant de demander un id,) Tj
+(Nous avons aussi fait en sorte que le menu affiche souvent les listes avant de demander) Tj
+0 -15 Td
+(un id,) Tj
 0 -15 Td
 (pour eviter de taper des valeurs au hasard.) Tj
 0 -15 Td
@@ -388,7 +406,7 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai choisi les clubs de l'ecole.) Tj
+(Nous avons choisi les clubs de l'ecole.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -404,7 +422,7 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai donc ajoute :) Tj
+(Nous avons donc ajoute :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -413,16 +431,27 @@ BT
 (- la table inscription_club) Tj
 0 -15 Td
 (- les routes API pour lire et modifier les clubs) Tj
-0 -15 Td
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 2135 >>
+stream
+BT
+/F1 11 Tf
+50 782 Td
 (- les actions correspondantes dans le menu admin) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(11. COMMENT J'AI VERIFIE LE PROJET) Tj
+(11. COMMENT NOUS AVONS VERIFIE LE PROJET) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Je n'ai pas juste ecrit le code. J'ai aussi verifie au fur et a mesure :) Tj
+(Nous n'avons pas juste ecrit le code. Nous avons aussi verifie au fur et a mesure :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -431,18 +460,7 @@ BT
 (- que les donnees se chargent sans erreur) Tj
 0 -15 Td
 (- que les requetes SQL passent) Tj
-ET
-endstream
-endobj
-11 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 12 0 R >>
-endobj
-12 0 obj
-<< /Length 2101 >>
-stream
-BT
-/F1 11 Tf
-50 782 Td
+0 -15 Td
 (- que les triggers font bien ce qui est demande) Tj
 0 -15 Td
 (- que l'API repond) Tj
@@ -451,7 +469,7 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai garde un script de verification pour rejouer rapidement les tests importants.) Tj
+(Nous avons garde un script de verification pour rejouer rapidement les tests importants.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -487,7 +505,7 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(13. POURQUOI J'AI CHOISI CET ORDRE DE TRAVAIL) Tj
+(13. POURQUOI NOUS AVONS CHOISI CET ORDRE DE TRAVAIL) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -513,17 +531,30 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai choisi cet ordre parce que chaque etape depend de la precedente. Si la base est) Tj
+(Nous avons choisi cet ordre parce que chaque etape depend de la precedente. Si la base) Tj
+0 -15 Td
+(est) Tj
 0 -15 Td
 (mal faite au debut, tout le reste devient plus difficile a corriger ensuite.) Tj
 0 -15 Td
 () Tj
-0 -15 Td
-(14. CE QUE JE RETIENS) Tj
+ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 1141 >>
+stream
+BT
+/F1 11 Tf
+50 782 Td
+(14. CE QUE NOUS RETENONS) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Ce projet m'a surtout servi a voir le lien entre :) Tj
+(Ce projet nous a surtout servi a voir le lien entre :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -537,19 +568,8 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(Le point le plus important pour moi, c'est qu'une API ne doit pas etre construite au) Tj
-ET
-endstream
-endobj
-13 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 14 0 R >>
-endobj
-14 0 obj
-<< /Length 674 >>
-stream
-BT
-/F1 11 Tf
-50 782 Td
+(Le point le plus important pour nous, c'est qu'une API ne doit pas etre construite au) Tj
+0 -15 Td
 (hasard. Il faut d'abord avoir des donnees propres, puis des routes utiles, puis une) Tj
 0 -15 Td
 (interface qui s'appuie dessus.) Tj
@@ -560,23 +580,25 @@ BT
 0 -15 Td
 () Tj
 0 -15 Td
-(Si je resume simplement :) Tj
+(Si nous resumons simplement :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(- j'ai commence par la base) Tj
+(- nous avons commence par la base) Tj
 0 -15 Td
-(- j'ai verifie les requetes SQL) Tj
+(- nous avons verifie les requetes SQL) Tj
 0 -15 Td
-(- j'ai ajoute la procedure et les triggers) Tj
+(- nous avons ajoute la procedure et les triggers) Tj
 0 -15 Td
-(- j'ai construit l'API par-dessus) Tj
+(- nous avons construit l'API par-dessus) Tj
 0 -15 Td
-(- j'ai termine par le menu admin) Tj
+(- nous avons termine par le menu admin) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(J'ai fait comme ca parce que je trouvais cet ordre plus logique, plus propre, et plus) Tj
+(Nous avons fait comme ca parce que nous trouvions cet ordre plus logique, plus propre,) Tj
+0 -15 Td
+(et plus) Tj
 0 -15 Td
 (facile a tester a chaque etape.) Tj
 ET
@@ -592,19 +614,19 @@ xref
 0000000064 00000 n 
 0000000153 00000 n 
 0000000280 00000 n 
-0000002503 00000 n 
-0000002630 00000 n 
-0000004716 00000 n 
-0000004843 00000 n 
-0000007243 00000 n 
-0000007371 00000 n 
-0000009560 00000 n 
-0000009689 00000 n 
-0000011843 00000 n 
-0000011972 00000 n 
-0000012698 00000 n 
+0000002425 00000 n 
+0000002552 00000 n 
+0000004668 00000 n 
+0000004795 00000 n 
+0000007222 00000 n 
+0000007350 00000 n 
+0000009501 00000 n 
+0000009630 00000 n 
+0000011818 00000 n 
+0000011947 00000 n 
+0000013141 00000 n 
 trailer
 << /Size 16 /Root 1 0 R >>
 startxref
-12769
+13212
 %%EOF

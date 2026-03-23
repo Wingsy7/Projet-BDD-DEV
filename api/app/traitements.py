@@ -18,13 +18,9 @@ from .requetes import (
 
 
 class GestionEcole:
-    # Cette classe centralise les lectures et les CRUD de l'API.
-    # L'idee est simple :
-    # 1. on lit des donnees en base
-    # 2. on les retravaille un peu en Python si besoin
-    # 3. on renvoie un format propre a l'API
+    # Ici on met la logique pour ne pas trop charger routes.py.
 
-    # Petites fonctions utilitaires
+    # Fonctions utiles
 
     def _format_eleve_admin(self, row: dict) -> dict:
         return {
@@ -88,7 +84,7 @@ class GestionEcole:
         params = tuple(values.values())
         return sql, params
 
-    # Lectures simples
+    # Lectures
 
     def list_eleves(self) -> list[dict]:
         return [self._format_eleve_simple(row) for row in fetch_all(STUDENT_SELECT)]
@@ -146,7 +142,7 @@ class GestionEcole:
             or eleve["dossier"]["avertissement_comportement"]
         ]
 
-    # Calculs faits en Python
+    # Calculs en Python
 
     def list_eleves_bonne_notes(self) -> list[dict]:
         grouped: dict[int, dict] = {}
@@ -300,7 +296,7 @@ class GestionEcole:
     def list_courses(self) -> list[dict]:
         return fetch_all(COURSE_SELECT)
 
-    # CRUD
+    # Ajout / modification / suppression
 
     def create_eleve(self, payload: dict) -> dict:
         result = execute(

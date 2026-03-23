@@ -33,7 +33,7 @@ def health() -> dict:
     return {"status": "ok"}
 
 
-# Routes eleves
+# Eleves
 
 @app.get("/eleve")
 def list_eleves() -> list[dict]:
@@ -90,7 +90,7 @@ def delete_eleve(eleve_id: int) -> dict:
     return gestion.delete_eleve(eleve_id)
 
 
-# Routes notes
+# Notes
 
 @app.get("/notes/{eleve_id}")
 def get_notes_for_eleve(eleve_id: int) -> list[dict]:
@@ -118,7 +118,7 @@ def update_note(note_id: int, payload: NoteUpdate) -> dict:
     return gestion.update_note(note_id, payload.model_dump())
 
 
-# Routes profs et dossiers
+# Profs et dossiers
 
 @app.get("/prof")
 def list_profs() -> list[dict]:
@@ -155,7 +155,7 @@ def update_dossier(eleve_id: int, payload: DossierUpdate) -> dict:
     return gestion.update_dossier(eleve_id, payload.model_dump())
 
 
-# Routes instances, promotions, cours
+# Instances, promotions et cours
 
 @app.get("/instances")
 def list_instances() -> list[dict]:
@@ -197,7 +197,7 @@ def list_specialite_promotions(specialite_id: int) -> list[dict]:
     return gestion.list_specialite_promotions(specialite_id)
 
 
-# Routes clubs
+# Clubs
 
 @app.get("/clubs")
 def list_clubs() -> list[dict]:
@@ -244,7 +244,7 @@ def delete_club_inscription(inscription_id: int) -> dict:
     return gestion.delete_club_inscription(inscription_id)
 
 
-# Routes entreprises et alternance
+# Entreprises et alternance
 
 @app.get("/entreprises")
 def list_entreprises() -> list[dict]:

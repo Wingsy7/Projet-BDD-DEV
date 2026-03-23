@@ -1,6 +1,6 @@
 # Projet Ecole Avance
 
-Ce dossier contient mon rendu pour les 2 sujets :
+Ce dossier correspond a notre rendu pour les 2 sujets :
 
 - `BDD & SQL - Projet Ecole (avance)`
 - `Dev BDD - API Projet Ecole (avance)`
@@ -10,8 +10,8 @@ Le projet est separe en 2 parties :
 - la base de donnees MySQL
 - l'API + le menu admin en Python
 
-J'ai essaye de garder une structure assez simple pour pouvoir la relire facilement.
-Si on veut comprendre le projet dans l'ordre, le plus simple est de lire :
+Nous avons essaye de garder quelque chose de simple a relire.
+Pour comprendre le projet dans l'ordre, le plus simple est de lire :
 
 1. `sql/base.sql`
 2. `sql/donnees.sql`
@@ -23,15 +23,15 @@ Si on veut comprendre le projet dans l'ordre, le plus simple est de lire :
 8. `admin_cli/menu.py`
 
 
-## Contenu du dossier
+## Contenu
 
 - `sql/base.sql` : script de creation de la base
-- `sql/donnees.sql` : les donnees que j'ai mises pour tester
+- `sql/donnees.sql` : les donnees que nous avons mises pour tester
 - `sql/requetes.sql` : les requetes demandees dans le sujet SQL
 - `sql/automatismes.sql` : la procedure stockee et les triggers
 - `sql/export.sql` : l'export final de la base
 - `api/app/routes.py` : les routes de l'API
-- `api/app/traitements.py` : la partie ou je fais les traitements en Python
+- `api/app/traitements.py` : la partie ou nous faisons les traitements en Python
 - `api/app/requetes.py` : les requetes SQL simples utilisees par l'API
 - `admin_cli/menu.py` : le menu en ligne de commande
 - `admin_cli/client.py` : les requetes HTTP avec `requests`
@@ -42,11 +42,11 @@ Si on veut comprendre le projet dans l'ordre, le plus simple est de lire :
 - `scripts/demarrer_menu.ps1` : script pour lancer le menu admin
 - `scripts/verifier.ps1` : un script pour verifier vite le projet
 
-## Fonctionnalite supplementaire : Clubs de l'ecole
+## Partie en plus : Clubs de l'ecole
 
 On a choisi d'ajouter la gestion des clubs de l'ecole.
 
-### Tables ajoutees
+### Tables
 
 - `club` : stocke les clubs de l'ecole
   - `nom` : nom du club
@@ -68,7 +68,7 @@ On a choisi d'ajouter la gestion des clubs de l'ecole.
 - Si un prof est supprime, le champ responsable_prof_id passe a NULL (ON DELETE SET NULL)
 - Si un eleve est supprime, ses inscriptions aux clubs sont supprimees (ON DELETE CASCADE)
 
-### Routes API ajoutees
+### Routes API
 
 - `GET /clubs` : liste tous les clubs avec le nombre de membres
 - `GET /clubs/{club_id}/membres` : liste les membres d'un club
@@ -81,18 +81,18 @@ On a choisi d'ajouter la gestion des clubs de l'ecole.
 - `PUT /club-inscriptions/{id}` : modifier une inscription
 - `DELETE /club-inscriptions/{id}` : supprimer une inscription
 
-### Menu admin
+### Menu
 
 Le menu admin permet de gerer les clubs et les inscriptions via l'API :
 - Lister les clubs et leurs membres
 - Creer, modifier, supprimer un club
 - Inscrire un eleve a un club, modifier ou supprimer une inscription
 
-## Ajout en plus : Alternance
+## Partie en plus : Alternance
 
-J'ai aussi ajoute un petit suivi d'alternance avec les entreprises.
+Nous avons aussi ajoute un petit suivi d'alternance avec les entreprises.
 
-### Tables ajoutees
+### Tables
 
 - `entreprise` : stocke les entreprises partenaires
   - `nom`
@@ -111,7 +111,7 @@ J'ai aussi ajoute un petit suivi d'alternance avec les entreprises.
   - `date_fin`
   - `salaire_mensuel`
 
-### Routes API ajoutees
+### Routes API
 
 - `GET /entreprises`
 - `POST /entreprises`
@@ -123,7 +123,7 @@ J'ai aussi ajoute un petit suivi d'alternance avec les entreprises.
 - `PUT /alternances/{alternance_id}`
 - `DELETE /alternances/{alternance_id}`
 
-### Menu admin
+### Menu
 
 Le menu permet maintenant aussi de :
 - lister les entreprises
@@ -144,7 +144,7 @@ $env:SCHOOL_PYTHON = "C:\chemin\vers\python.exe"
 .\scripts\installer.ps1
 ```
 
-## Mise en place de la base
+## Mise en place
 
 Le plus simple :
 ```powershell
@@ -201,11 +201,11 @@ http://127.0.0.1:8000/docs
 & ".\scripts\verifier.ps1"
 ```
 
-Je l'ai surtout garde pour verifier rapidement que la base, l'API et le menu tournent encore ensemble.
+Nous l'avons surtout garde pour verifier rapidement que la base, l'API et le menu tournent bien ensemble.
 
 ## Portabilite
 
-J'ai essaye de faire en sorte que le projet demande le moins d'adaptation possible :
+Nous avons essaye de faire en sorte que le projet demande le moins d'adaptation possible :
 
 - les scripts PowerShell detectent Python et MySQL automatiquement si c'est dans le PATH
 - sinon on peut donner les chemins avec `SCHOOL_PYTHON`, `SCHOOL_MYSQL_EXE` et `SCHOOL_MYSQLDUMP_EXE`
@@ -219,7 +219,7 @@ J'ai essaye de faire en sorte que le projet demande le moins d'adaptation possib
 - les tris, filtres et calculs de l'API sont faits en Python
 - le menu admin passe par l'API, il ne se connecte pas directement a MySQL
 
-## Livrables presents
+## Livrables
 
 - le schema PNG
 - l'export SQL final
