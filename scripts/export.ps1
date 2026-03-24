@@ -2,7 +2,7 @@
 
 Import-ProjectEnv
 
-$databaseName = Get-EnvValue "SCHOOL_DB_NAME" "cozma_miroslav"
+$databaseName = Get-EnvValue "SCHOOL_DB_NAME" "equipe_5"
 $dumpPath = Join-Path (Get-ProjectRoot) "sql\\export.sql"
 $dumpPath = [System.IO.Path]::GetFullPath($dumpPath)
 $mysqldump = Get-MySqlDumpPath
@@ -14,4 +14,5 @@ $args += "--databases"
 $args += $databaseName
 
 & $mysqldump @args > $dumpPath
+Assert-LastExitCode "Erreur pendant la creation de l'export SQL"
 Write-Host "Export cree : $dumpPath"

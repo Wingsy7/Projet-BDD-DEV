@@ -1,255 +1,164 @@
-EXPLICATION DU PROJET ECOLE AVANCE
+NOTES PROJET ECOLE AVANCE
 
-Ce document explique rapidement comment nous avons construit le projet, dans quel ordre
-nous l'avons fait, et pourquoi nous avons pris certaines decisions.
+1. IDEE DE DEPART
 
-1. BUT DU PROJET
+Le projet regroupe 2 parties :
 
-Le but etait de faire 2 choses qui vont ensemble :
+- une base de donnees MySQL sur une ecole
+- une API Python avec un menu admin
 
-- une base de donnees MySQL sur le theme d'une ecole
-- une API Python + un menu admin en ligne de commande
+On a voulu garder le meme theme partout pour que la base, l'API et le menu
+soient relies entre eux.
 
-L'idee generale etait de faire quelque chose de coherent entre la partie SQL et la
-partie API. Nous ne voulions pas faire une API a part, donc nous avons d'abord pose la base.
+2. PAR QUOI ON A COMMENCE
 
-2. PAR QUOI NOUS AVONS COMMENCE
+On a commence par la base.
 
-Nous avons commence par la base de donnees. Pour nous c'etait le plus logique parce que tout
-le reste depend de la structure des tables.
+On a d'abord pose les tables principales :
 
-Avant d'ecrire l'API, nous avons d'abord liste les elements importants du sujet :
+- specialite
+- promotion
+- cours
+- prof
+- eleve
+- dossier
+- absence
+- note
 
-- les specialites
-- les promotions
-- les cours
-- les profs
-- les eleves
-- les dossiers
-- les absences
-- les notes
-
-Ensuite nous avons ajoute une fonctionnalite supplementaire pour aller un peu plus loin :
-les clubs de l'ecole.
-
-3. CONSTRUCTION DE LA BASE
-
-La premiere etape a ete de faire le schema SQL. Nous avons essaye de creer une base simple
-a comprendre, mais assez complete pour repondre a tout le sujet.
-
-Nous avons separe la base en plusieurs fichiers :
-
-- base.sql pour les tables et les relations
-- donnees.sql pour avoir un vrai jeu de test
-- requetes.sql pour toutes les requetes demandees
-- automatismes.sql pour la procedure stockee et les triggers
-
-Nous avons choisi de faire des tables de liaison quand c'etait utile, par exemple :
+Ensuite on a ajoute les tables de liaison quand c'etait utile :
 
 - prof_cours
 - eleve_cours
-- inscription_club
 
-Pourquoi nous avons fait comme ca :
+3. POURQUOI CETTE STRUCTURE
 
-- ca respecte mieux le fonctionnement reel d'une ecole
-- c'est plus simple ensuite pour faire des jointures
-- l'API peut recuperer des donnees plus propres
+Le but etait d'avoir une base assez simple a relire, mais assez complete pour
+faire les requetes du sujet sans tricher.
 
-4. POURQUOI NOUS AVONS MIS DES DONNEES DE TEST
+Par exemple :
 
-Nous avons ajoute des donnees de depart assez variees pour que les requetes soient
-interessantes a montrer.
+- un eleve appartient a une promotion
+- une promotion appartient a une specialite
+- un cours peut etre commun ou rattache a une specialite
+- un eleve peut suivre plusieurs cours
+- un prof peut enseigner plusieurs cours
 
-Par exemple, nous avons fait attention a avoir :
+4. DONNEES DE DEPART
 
-- plusieurs specialites
-- plusieurs promotions
-- des eleves mineurs et majeurs
-- des notes differentes
+On a mis un vrai jeu de donnees pour que les resultats soient plus parlants.
+
+On a ajoute :
+
+- plusieurs promos
+- plusieurs profs
+- plus d'eleves que dans la premiere version
 - des absences differentes
-- des clubs avec plusieurs membres
+- des notes fortes, moyennes et faibles
+- des entreprises et des contrats d'alternance
 
-Le but etait d'eviter une base trop vide, parce qu'avec trop peu de donnees on ne voit
-pas bien si les filtres, moyennes, tris et regroupements fonctionnent vraiment.
+Comme ca, les tris, moyennes, sous-requetes et regroupements donnent des
+resultats qu'on peut vraiment commenter.
 
-5. LES REQUETES SQL
+5. REQUETES SQL
 
-Une fois la base posee, nous avons fait les requetes du sujet. Nous avons prefere faire cette
-etape avant l'API pour verifier que le schema etait deja bon.
+Une fois la base faite, on a ecrit les requetes du sujet :
 
-Nous avons fait :
+- SELECT simples
+- jointures
+- AVG, SUM, GROUP BY, HAVING, ORDER BY
+- sous-requetes
+- insert, update, delete
 
-- des SELECT simples
-- des jointures
-- des requetes avec AVG, SUM, GROUP BY, HAVING, ORDER BY
-- des sous-requetes
-- des exemples d'ajout, de modification et de suppression
+On a fait cette partie avant l'API pour verifier que la base etait deja
+coherente.
 
-Pourquoi :
+6. PROCEDURE ET TRIGGERS
 
-- ca permettait de voir tout de suite si la base etait coherente
-- si une requete etait compliquee a faire, c'etait souvent un signe qu'il fallait
-  revoir une relation ou une table
+On a ajoute une procedure de classement des eleves.
 
-6. LA PROCEDURE STOCKEE ET LES TRIGGERS
+Le score tient compte :
 
-Apres les requetes classiques, nous avons fait la procedure de classement des eleves.
-L'idee etait de calculer un score a partir de la moyenne, des absences et des
-avertissements.
+- de la moyenne
+- des absences
+- des avertissements
 
-Nous avons ensuite ajoute 3 triggers demandes dans le sujet :
+On a aussi ajoute les triggers demandes :
 
-- creation automatique d'un dossier quand on ajoute un eleve
-- ajout de l'information "mineur" dans le dossier si l'eleve a moins de 18 ans
-- conservation de la meilleure note si on essaye de baisser une note
-- quand un prof est supprime, les notes passent a 10 et le prof devient NULL
+- creation automatique du dossier
+- ajout de l'info "mineur" si l'eleve a moins de 18 ans
+- garder la meilleure note
+- mettre une note a 10 si le prof est supprime
 
-Cette partie nous a servi a montrer que la base ne fait pas seulement du stockage, mais
-qu'elle gere aussi certaines regles metier.
+7. API
 
-7. CREATION DE L'API
+Quand la base etait stable, on a fait l'API avec FastAPI.
 
-Quand la base etait stable, nous avons commence l'API avec FastAPI.
+L'idee etait de garder des requetes SQL simples dans `requetes.py`, puis de
+faire les traitements dans `traitements.py`.
 
-Nous avons fait ce choix parce que :
+Exemples :
 
-- c'etait dans la logique du cours
-- Swagger est pratique pour tester vite
-- les routes GET, POST, PUT et DELETE sont simples a montrer
+- bonnes notes
+- profs severes
+- heures d'absence
+- regroupement des notes
 
-Nous avons essaye de garder une idee importante du sujet :
+8. MENU ADMIN
 
-- faire des requetes SQL simples cote API
-- faire les tris, filtres et calculs en Python
+Le menu admin a ete fait apres l'API.
 
-Donc l'ordre etait souvent :
+Il ne parle pas directement a MySQL.
+Il passe par l'API avec `requests`.
 
-1. recuperer des donnees depuis MySQL
-2. retravailler les donnees en Python
-3. renvoyer le resultat dans le format demande
+Le menu reste simple :
 
-Par exemple, pour les bonnes notes, les profs severes ou les absences en heures,
-le calcul est fait en Python et pas dans une grosse requete SQL.
+- lire
+- creer
+- modifier
+- supprimer
 
-8. POURQUOI NOUS AVONS SEPARE LES FICHIERS DE L'API
+Le menu affiche aussi les listes avant de demander un id, ce qui evite de taper
+des valeurs au hasard.
 
-Nous avons separe l'API en plusieurs petits fichiers pour nous y retrouver plus facilement :
+9. PARTIES EN PLUS
 
-- routes.py pour les routes
-- traitements.py pour les traitements
-- requetes.py pour les requetes simples
-- bdd.py pour la connexion a MySQL
-- schemas.py pour les modeles FastAPI
+On a garde 2 ajouts :
 
-Nous trouvions ca plus propre qu'un seul gros fichier, surtout quand nous avons commence a
-ajouter les CRUD et les routes supplementaires.
+- les clubs
+- l'alternance
 
-9. LE MENU ADMIN EN LIGNE DE COMMANDE
+Les clubs servent surtout a montrer une autre relation plusieurs-a-plusieurs.
+L'alternance permet d'avoir des entreprises et des contrats eleve/entreprise.
 
-Une fois l'API faite, nous avons ajoute le menu admin.
+10. CE QUI ETAIT LE PLUS DELICAT
 
-Nous l'avons fait apres l'API et pas avant, parce que le menu depend completement des routes.
-Le menu envoie des requetes HTTP avec requests, donc il ne parle jamais directement a
-la base de donnees.
+Les points les plus delicats etaient :
 
-C'etait important pour respecter le sujet.
+- faire une base assez riche sans la rendre illisible
+- respecter le format exact de certaines routes
+- faire cohabiter les triggers sans bug
+- garder un menu simple
 
-Nous avons essaye de faire un menu simple :
-
-- lire les eleves
-- creer, modifier, supprimer
-- faire pareil pour les profs, instances, clubs
-- modifier le dossier
-- voir les routes du sujet depuis le menu
-
-Nous avons aussi fait en sorte que le menu affiche souvent les listes avant de demander un id,
-pour eviter de taper des valeurs au hasard.
-
-10. LA FONCTIONNALITE SUPPLEMENTAIRE
-
-Nous avons choisi les clubs de l'ecole.
-
-Pourquoi ce choix :
-
-- ca ajoutait une vraie fonctionnalite sans casser le sujet principal
-- ca permettait d'avoir du CRUD en plus
-- ca montrait une relation entre eleves, clubs et parfois prof responsable
-
-Nous avons donc ajoute :
-
-- la table club
-- la table inscription_club
-- les routes API pour lire et modifier les clubs
-- les actions correspondantes dans le menu admin
-
-11. COMMENT NOUS AVONS VERIFIE LE PROJET
-
-Nous n'avons pas juste ecrit le code. Nous avons aussi verifie au fur et a mesure :
-
-- que la base se recree bien
-- que les donnees se chargent sans erreur
-- que les requetes SQL passent
-- que les triggers font bien ce qui est demande
-- que l'API repond
-- que le menu admin fonctionne avec l'API
-
-Nous avons garde un script de verification pour rejouer rapidement les tests importants.
-
-12. LES PRINCIPALES DIFFICULTES
-
-Les difficultes principales etaient surtout :
-
-- garder une base simple mais assez riche
-- respecter les formats exacts demandes pour certaines routes
-- faire cohabiter le trigger "garder la meilleure note" avec celui qui met les notes a
-  10 lors de la suppression d'un prof
-- faire un menu admin utile sans le rendre trop complique
-
-La solution a souvent ete de reprendre calmement la logique :
-
-- d'abord verifier la base
-- ensuite verifier la route API
-- ensuite verifier le menu
-
-13. POURQUOI NOUS AVONS CHOISI CET ORDRE DE TRAVAIL
+11. ORDRE DE TRAVAIL
 
 L'ordre final a ete :
 
-1. penser les donnees
-2. faire la base et les relations
-3. mettre des donnees de test
+1. penser les tables
+2. faire la base
+3. charger des donnees
 4. faire les requetes SQL
-5. ajouter procedure et triggers
-6. creer l'API
-7. creer le menu admin
-8. tester l'ensemble
+5. ajouter la procedure et les triggers
+6. faire l'API
+7. faire le menu admin
+8. verifier l'ensemble
 
-Nous avons choisi cet ordre parce que chaque etape depend de la precedente. Si la base est
-mal faite au debut, tout le reste devient plus difficile a corriger ensuite.
+12. CE QU'ON RETIENT
 
-14. CE QUE NOUS RETENONS
+Ce projet nous a surtout servi a relier plusieurs choses vues en cours :
 
-Ce projet nous a surtout servi a voir le lien entre :
-
-- la modelisation SQL
-- les traitements Python
-- une API REST
-- une petite interface d'administration
-
-Le point le plus important pour nous, c'est qu'une API ne doit pas etre construite au
-hasard. Il faut d'abord avoir des donnees propres, puis des routes utiles, puis une
-interface qui s'appuie dessus.
-
-15. CONCLUSION
-
-Si nous resumons simplement :
-
-- nous avons commence par la base
-- nous avons verifie les requetes SQL
-- nous avons ajoute la procedure et les triggers
-- nous avons construit l'API par-dessus
-- nous avons termine par le menu admin
-
-Nous avons fait comme ca parce que nous trouvions cet ordre plus logique, plus propre, et plus
-facile a tester a chaque etape.
+- modeliser une base
+- faire des requetes SQL utiles
+- recuperer les donnees en Python
+- retravailler les resultats en Python
+- exposer la base avec une API
+- utiliser cette API dans un petit outil admin

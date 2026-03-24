@@ -1,4 +1,4 @@
-USE cozma_miroslav;
+USE equipe_5;
 
 -- 1. Specialites, promotions, cours et profs
 
@@ -86,7 +86,16 @@ INSERT INTO eleve (id, nom, email, age, promotion_id) VALUES
     (12, 'Salome Robert', 'salome.robert@ecole.local', 21, 1),
     (13, 'Mehdi Ouali', 'mehdi.ouali@ecole.local', 19, 2),
     (14, 'Camille Torres', 'camille.torres@ecole.local', 17, 6),
-    (15, 'Lucas Perrin', 'lucas.perrin@ecole.local', 22, 3);
+    (15, 'Lucas Perrin', 'lucas.perrin@ecole.local', 22, 3),
+    (16, 'Emma Lemoine', 'emma.lemoine@ecole.local', 20, 1),
+    (17, 'Rayan Khelifi', 'rayan.khelifi@ecole.local', 18, 2),
+    (18, 'Clara Nguyen', 'clara.nguyen@ecole.local', 19, 3),
+    (19, 'Tom Garcia', 'tom.garcia@ecole.local', 17, 4),
+    (20, 'Lina Moreau', 'lina.moreau@ecole.local', 21, 5),
+    (21, 'Hugo Diallo', 'hugo.diallo@ecole.local', 20, 6),
+    (22, 'Sarah Benamar', 'sarah.benamar@ecole.local', 22, 1),
+    (23, 'Noa Richard', 'noa.richard@ecole.local', 18, 2),
+    (24, 'Eva Marchal', 'eva.marchal@ecole.local', 19, 3);
 
 UPDATE dossier
 SET infos = 'eleve reguliere, dossier a jour'
@@ -148,6 +157,42 @@ UPDATE dossier
 SET infos = 'niveau stable, bon esprit d equipe'
 WHERE eleve_id = 15;
 
+UPDATE dossier
+SET infos = 'serieuse en developpement'
+WHERE eleve_id = 16;
+
+UPDATE dossier
+SET infos = 'bon niveau reseau'
+WHERE eleve_id = 17;
+
+UPDATE dossier
+SET infos = 'appliquee en data'
+WHERE eleve_id = 18;
+
+UPDATE dossier
+SET infos = 'mineur - suivi classique'
+WHERE eleve_id = 19;
+
+UPDATE dossier
+SET infos = 'profil regulier'
+WHERE eleve_id = 20;
+
+UPDATE dossier
+SET infos = 'travail serieux'
+WHERE eleve_id = 21;
+
+UPDATE dossier
+SET infos = 'bonne autonomie'
+WHERE eleve_id = 22;
+
+UPDATE dossier
+SET infos = 'a l aise a l oral'
+WHERE eleve_id = 23;
+
+UPDATE dossier
+SET infos = 'resultats stables'
+WHERE eleve_id = 24;
+
 -- 3. Cours suivis par les eleves
 
 INSERT INTO eleve_cours (eleve_id, cours_id) VALUES
@@ -165,7 +210,16 @@ INSERT INTO eleve_cours (eleve_id, cours_id) VALUES
     (12, 1), (12, 2), (12, 4), (12, 6), (12, 9),
     (13, 3), (13, 4), (13, 6), (13, 7),
     (14, 4), (14, 5), (14, 6), (14, 8),
-    (15, 4), (15, 5), (15, 6), (15, 8);
+    (15, 4), (15, 5), (15, 6), (15, 8),
+    (16, 1), (16, 2), (16, 4), (16, 6), (16, 9),
+    (17, 3), (17, 4), (17, 6), (17, 7),
+    (18, 4), (18, 5), (18, 6), (18, 8),
+    (19, 1), (19, 2), (19, 6), (19, 9),
+    (20, 3), (20, 4), (20, 6), (20, 7),
+    (21, 4), (21, 5), (21, 6), (21, 8),
+    (22, 1), (22, 2), (22, 4), (22, 6), (22, 9),
+    (23, 3), (23, 4), (23, 6), (23, 7),
+    (24, 4), (24, 5), (24, 6), (24, 8);
 
 -- 4. Seances, absences et notes
 
@@ -184,7 +238,14 @@ INSERT INTO instance_cours (id, cours_id, prof_id, date_cours) VALUES
     (12, 5, 6, '2026-02-18 13:30:00'),
     (13, 3, 5, '2026-02-19 10:00:00'),
     (14, 9, 7, '2026-02-20 15:00:00'),
-    (15, 8, 6, '2026-02-21 09:30:00');
+    (15, 8, 6, '2026-02-21 09:30:00'),
+    (16, 1, 1, '2026-02-24 09:00:00'),
+    (17, 7, 5, '2026-02-25 10:00:00'),
+    (18, 8, 6, '2026-02-26 09:30:00'),
+    (19, 9, 7, '2026-02-27 15:00:00'),
+    (20, 3, 5, '2026-03-02 10:00:00'),
+    (21, 5, 6, '2026-03-03 13:30:00'),
+    (22, 2, 1, '2026-03-04 14:00:00');
 
 INSERT INTO absence (id, eleve_id, instance_cours_id, duree_minutes, justificatif) VALUES
     (1, 2, 1, 45, 1),
@@ -201,7 +262,14 @@ INSERT INTO absence (id, eleve_id, instance_cours_id, duree_minutes, justificati
     (12, 13, 13, 120, 0),
     (13, 14, 15, 180, 0),
     (14, 15, 12, 60, 1),
-    (15, 5, 10, 30, 1);
+    (15, 5, 10, 30, 1),
+    (16, 16, 19, 30, 1),
+    (17, 17, 17, 60, 0),
+    (18, 18, 18, 45, 1),
+    (19, 19, 16, 90, 0),
+    (20, 20, 20, 120, 1),
+    (21, 21, 21, 60, 0),
+    (22, 23, 20, 30, 1);
 
 INSERT INTO note (id, eleve_id, cours_id, prof_id, valeur, commentaire) VALUES
     (1, 1, 1, 1, 14.50, 'bon demarrage'),
@@ -242,7 +310,34 @@ INSERT INTO note (id, eleve_id, cours_id, prof_id, valeur, commentaire) VALUES
     (36, 14, 4, 3, 11.00, 'correct'),
     (37, 15, 5, 6, 17.50, 'excellent rendu'),
     (38, 15, 8, 6, 16.50, 'bonne autonomie'),
-    (39, 15, 4, 3, 15.00, 'tres propre');
+    (39, 15, 4, 3, 15.00, 'tres propre'),
+    (40, 16, 1, 1, 13.50, 'bon travail'),
+    (41, 16, 2, 1, 14.00, 'resultat serieux'),
+    (42, 16, 9, 7, 15.00, 'bonne mise en place'),
+    (43, 17, 3, 5, 12.00, 'bonne base'),
+    (44, 17, 4, 2, 11.00, 'sql correct'),
+    (45, 17, 7, 5, 13.50, 'travail applique'),
+    (46, 18, 5, 6, 15.00, 'bon niveau'),
+    (47, 18, 8, 6, 16.50, 'tres bonne analyse'),
+    (48, 18, 4, 3, 14.00, 'requetes propres'),
+    (49, 19, 1, 1, 10.50, 'ensemble correct'),
+    (50, 19, 2, 1, 11.50, 'progression'),
+    (51, 19, 9, 7, 12.00, 'travail propre'),
+    (52, 20, 3, 5, 14.00, 'bon raisonnement'),
+    (53, 20, 4, 2, 13.00, 'plutot serieux'),
+    (54, 20, 7, 5, 15.00, 'bonne analyse'),
+    (55, 21, 5, 6, 14.50, 'bon dossier'),
+    (56, 21, 8, 6, 15.50, 'bon resultat'),
+    (57, 21, 4, 3, 13.00, 'propre'),
+    (58, 22, 1, 1, 16.00, 'bon niveau'),
+    (59, 22, 2, 1, 15.50, 'a l aise'),
+    (60, 22, 9, 7, 15.00, 'bonne organisation'),
+    (61, 23, 3, 5, 11.50, 'peut mieux faire'),
+    (62, 23, 4, 2, 10.00, 'moyen'),
+    (63, 23, 7, 5, 12.50, 'ensemble correct'),
+    (64, 24, 5, 6, 13.50, 'travail serieux'),
+    (65, 24, 8, 6, 14.50, 'bon rendu'),
+    (66, 24, 4, 3, 12.50, 'propre');
 
 -- 5. Clubs et alternance
 
@@ -262,7 +357,16 @@ INSERT INTO inscription_club (id, club_id, eleve_id, role_membre, date_inscripti
     (13, 3, 9, 'membre', '2026-01-27'),
     (14, 1, 10, 'membre', '2026-01-30'),
     (15, 2, 15, 'membre', '2026-01-18'),
-    (16, 4, 14, 'vice-presidente', '2026-02-01');
+    (16, 4, 14, 'vice-presidente', '2026-02-01'),
+    (17, 5, 16, 'membre', '2026-02-03'),
+    (18, 3, 17, 'membre', '2026-02-04'),
+    (19, 4, 18, 'membre', '2026-02-05'),
+    (20, 5, 19, 'membre', '2026-02-06'),
+    (21, 3, 20, 'membre', '2026-02-07'),
+    (22, 1, 21, 'membre', '2026-02-08'),
+    (23, 5, 22, 'membre', '2026-02-09'),
+    (24, 2, 23, 'membre', '2026-02-10'),
+    (25, 4, 24, 'membre', '2026-02-11');
 
 INSERT INTO alternance (
     id,
@@ -285,7 +389,11 @@ INSERT INTO alternance (
     (8, 15, 6, 'Apprentissage', 'Analyste data junior', '4 jours entreprise / 1 jour ecole', '2026-09-15', '2027-09-14', 1410.00),
     (9, 9, 7, 'Professionnalisation', 'Analyste cyber junior', '2 semaines entreprise / 1 semaine ecole', '2026-09-10', '2027-09-09', 1360.00),
     (10, 11, 9, 'Apprentissage', 'Integrateur cloud junior', '3 semaines entreprise / 1 semaine ecole', '2026-09-20', '2027-09-19', 1320.00),
-    (11, 6, 10, 'Professionnalisation', 'Consultant data junior', '4 jours entreprise / 1 jour ecole', '2026-10-05', '2027-10-04', 1390.00);
+    (11, 6, 10, 'Professionnalisation', 'Consultant data junior', '4 jours entreprise / 1 jour ecole', '2026-10-05', '2027-10-04', 1390.00),
+    (12, 16, 8, 'Apprentissage', 'Developpeuse web junior', '3 semaines entreprise / 1 semaine ecole', '2026-09-08', '2027-09-07', 1310.00),
+    (13, 18, 6, 'Apprentissage', 'Assistante data', '4 jours entreprise / 1 jour ecole', '2026-09-12', '2027-09-11', 1340.00),
+    (14, 21, 10, 'Professionnalisation', 'Chargé de reporting junior', '4 jours entreprise / 1 jour ecole', '2026-10-01', '2027-09-30', 1360.00),
+    (15, 22, 8, 'Apprentissage', 'Developpeuse front junior', '3 semaines entreprise / 1 semaine ecole', '2026-09-05', '2027-09-04', 1330.00);
 
 -- On remplit la table de classement a la fin
 

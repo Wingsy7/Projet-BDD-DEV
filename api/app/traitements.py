@@ -18,7 +18,7 @@ from .requetes import (
 
 
 class GestionEcole:
-    # Ici on met la logique pour ne pas trop charger routes.py.
+    # On garde ici les traitements pour laisser les routes simples.
 
     # Fonctions utiles
 
@@ -77,7 +77,10 @@ class GestionEcole:
         raise HTTPException(status_code=404, detail=message)
 
     def _preparer_update(self, payload: dict) -> tuple[str, tuple]:
-        values = {key: value for key, value in payload.items() if value is not None}
+        values = {}
+        for key, value in payload.items():
+            if value is not None:
+                values[key] = value
         if not values:
             raise HTTPException(status_code=400, detail="Aucune valeur a modifier.")
         sql = ", ".join(f"{key} = %s" for key in values)
@@ -93,11 +96,10 @@ class GestionEcole:
         return [self._format_eleve_admin(row) for row in fetch_all(STUDENT_SELECT)]
 
     def get_eleve(self, eleve_id: int) -> dict:
-        eleve = next(
-            (row for row in self.list_eleves_admin() if row["id"] == eleve_id),
-            None,
-        )
-        return self._verifier(eleve, "Eleve introuvable.")
+        for eleve in self.list_eleves_admin():
+            if eleve["id"] == eleve_id:
+                return eleve
+        raise HTTPException(status_code=404, detail="Eleve introuvable.")
 
     def list_promotions(self) -> list[dict]:
         return fetch_all(PROMOTION_SELECT)
@@ -287,11 +289,11 @@ class GestionEcole:
 
     def list_eleve_alternances(self, eleve_id: int) -> list[dict]:
         self.get_eleve(eleve_id)
-        return [
-            row
-            for row in self.list_alternances()
-            if row["eleve_id"] == eleve_id
-        ]
+        result = []
+        for row in self.list_alternances():
+            if row["eleve_id"] == eleve_id:
+                result.append(row)
+        return result
 
     def list_courses(self) -> list[dict]:
         return fetch_all(COURSE_SELECT)
@@ -371,11 +373,19 @@ class GestionEcole:
         return self.list_notes_admin()
 
     def update_dossier(self, eleve_id: int, payload: dict) -> dict:
-        dossier = next((row for row in self.list_dossiers() if row["eleve_id"] == eleve_id), None)
+        dossier = None
+        for row in self.list_dossiers():
+            if row["eleve_id"] == eleve_id:
+                dossier = row
+                break
         self._verifier(dossier, "Dossier introuvable.")
         sql, params = self._preparer_update(payload)
         execute(f"UPDATE dossier SET {sql} WHERE eleve_id = %s", params + (eleve_id,))
-        dossier = next((row for row in self.list_dossiers() if row["eleve_id"] == eleve_id), None)
+        dossier = None
+        for row in self.list_dossiers():
+            if row["eleve_id"] == eleve_id:
+                dossier = row
+                break
         return self._verifier(dossier, "Dossier introuvable.")
 
     def create_instance(self, payload: dict) -> dict:

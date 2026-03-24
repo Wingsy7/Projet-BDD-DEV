@@ -4,129 +4,72 @@
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Count 6 /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R] >>
+<< /Type /Pages /Count 4 /Kids [3 0 R 5 0 R 7 0 R 9 0 R] >>
 endobj
 3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 4 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 11 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 2093 >>
+<< /Length 1698 >>
 stream
 BT
 /F1 11 Tf
 50 782 Td
-(EXPLICATION DU PROJET ECOLE AVANCE) Tj
+(NOTES PROJET ECOLE AVANCE) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Ce document explique rapidement comment nous avons construit le projet, dans quel ordre) Tj
-0 -15 Td
-(nous l'avons fait, et pourquoi nous avons pris certaines decisions.) Tj
+(1. IDEE DE DEPART) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(1. BUT DU PROJET) Tj
+(Le projet regroupe 2 parties :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Le but etait de faire 2 choses qui vont ensemble :) Tj
+(- une base de donnees MySQL sur une ecole) Tj
+0 -15 Td
+(- une API Python avec un menu admin) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(- une base de donnees MySQL sur le theme d'une ecole) Tj
+(On a voulu garder le meme theme partout pour que la base, l'API et le menu) Tj
 0 -15 Td
-(- une API Python + un menu admin en ligne de commande) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(L'idee generale etait de faire quelque chose de coherent entre la partie SQL et la) Tj
-0 -15 Td
-(partie API. Nous ne voulions pas faire une API a part, donc nous avons d'abord pose la) Tj
-0 -15 Td
-(base.) Tj
+(soient relies entre eux.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(2. PAR QUOI NOUS AVONS COMMENCE) Tj
+(2. PAR QUOI ON A COMMENCE) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Nous avons commence par la base de donnees. Pour nous c'etait le plus logique parce que) Tj
-0 -15 Td
-(tout) Tj
-0 -15 Td
-(le reste depend de la structure des tables.) Tj
+(On a commence par la base.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Avant d'ecrire l'API, nous avons d'abord liste les elements importants du sujet :) Tj
+(On a d'abord pose les tables principales :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(- les specialites) Tj
+(- specialite) Tj
 0 -15 Td
-(- les promotions) Tj
+(- promotion) Tj
 0 -15 Td
-(- les cours) Tj
+(- cours) Tj
 0 -15 Td
-(- les profs) Tj
+(- prof) Tj
 0 -15 Td
-(- les eleves) Tj
+(- eleve) Tj
 0 -15 Td
-(- les dossiers) Tj
+(- dossier) Tj
 0 -15 Td
-(- les absences) Tj
+(- absence) Tj
 0 -15 Td
-(- les notes) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Ensuite nous avons ajoute une fonctionnalite supplementaire pour aller un peu plus loin) Tj
-0 -15 Td
-(:) Tj
-0 -15 Td
-(les clubs de l'ecole.) Tj
+(- note) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(3. CONSTRUCTION DE LA BASE) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(La premiere etape a ete de faire le schema SQL. Nous avons essaye de creer une base) Tj
-0 -15 Td
-(simple) Tj
-0 -15 Td
-(a comprendre, mais assez complete pour repondre a tout le sujet.) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Nous avons separe la base en plusieurs fichiers :) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(- base.sql pour les tables et les relations) Tj
-0 -15 Td
-(- donnees.sql pour avoir un vrai jeu de test) Tj
-0 -15 Td
-(- requetes.sql pour toutes les requetes demandees) Tj
-ET
-endstream
-endobj
-5 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 6 0 R >>
-endobj
-6 0 obj
-<< /Length 2064 >>
-stream
-BT
-/F1 11 Tf
-50 782 Td
-(- automatismes.sql pour la procedure stockee et les triggers) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Nous avons choisi de faire des tables de liaison quand c'etait utile, par exemple :) Tj
+(Ensuite on a ajoute les tables de liaison quand c'etait utile :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -134,499 +77,326 @@ BT
 0 -15 Td
 (- eleve_cours) Tj
 0 -15 Td
-(- inscription_club) Tj
+() Tj
+0 -15 Td
+(3. POURQUOI CETTE STRUCTURE) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Pourquoi nous avons fait comme ca :) Tj
+(Le but etait d'avoir une base assez simple a relire, mais assez complete pour) Tj
+0 -15 Td
+(faire les requetes du sujet sans tricher.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(- ca respecte mieux le fonctionnement reel d'une ecole) Tj
-0 -15 Td
-(- c'est plus simple ensuite pour faire des jointures) Tj
-0 -15 Td
-(- l'API peut recuperer des donnees plus propres) Tj
+(Par exemple :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(4. POURQUOI NOUS AVONS MIS DES DONNEES DE TEST) Tj
+(- un eleve appartient a une promotion) Tj
+0 -15 Td
+(- une promotion appartient a une specialite) Tj
+0 -15 Td
+(- un cours peut etre commun ou rattache a une specialite) Tj
+0 -15 Td
+(- un eleve peut suivre plusieurs cours) Tj
+0 -15 Td
+(- un prof peut enseigner plusieurs cours) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Nous avons ajoute des donnees de depart assez variees pour que les requetes soient) Tj
-0 -15 Td
-(interessantes a montrer.) Tj
+(4. DONNEES DE DEPART) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Par exemple, nous avons fait attention a avoir :) Tj
+(On a mis un vrai jeu de donnees pour que les resultats soient plus parlants.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 11 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 1795 >>
+stream
+BT
+/F1 11 Tf
+50 782 Td
+() Tj
+0 -15 Td
+(On a ajoute :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(- plusieurs specialites) Tj
+(- plusieurs promos) Tj
 0 -15 Td
-(- plusieurs promotions) Tj
+(- plusieurs profs) Tj
 0 -15 Td
-(- des eleves mineurs et majeurs) Tj
-0 -15 Td
-(- des notes differentes) Tj
+(- plus d'eleves que dans la premiere version) Tj
 0 -15 Td
 (- des absences differentes) Tj
 0 -15 Td
-(- des clubs avec plusieurs membres) Tj
+(- des notes fortes, moyennes et faibles) Tj
+0 -15 Td
+(- des entreprises et des contrats d'alternance) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Le but etait d'eviter une base trop vide, parce qu'avec trop peu de donnees on ne voit) Tj
+(Comme ca, les tris, moyennes, sous-requetes et regroupements donnent des) Tj
 0 -15 Td
-(pas bien si les filtres, moyennes, tris et regroupements fonctionnent vraiment.) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(5. LES REQUETES SQL) Tj
+(resultats qu'on peut vraiment commenter.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Une fois la base posee, nous avons fait les requetes du sujet. Nous avons prefere faire) Tj
-0 -15 Td
-(cette) Tj
-0 -15 Td
-(etape avant l'API pour verifier que le schema etait deja bon.) Tj
+(5. REQUETES SQL) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Nous avons fait :) Tj
+(Une fois la base faite, on a ecrit les requetes du sujet :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(- des SELECT simples) Tj
+(- SELECT simples) Tj
 0 -15 Td
-(- des jointures) Tj
+(- jointures) Tj
 0 -15 Td
-(- des requetes avec AVG, SUM, GROUP BY, HAVING, ORDER BY) Tj
+(- AVG, SUM, GROUP BY, HAVING, ORDER BY) Tj
 0 -15 Td
-(- des sous-requetes) Tj
+(- sous-requetes) Tj
 0 -15 Td
-(- des exemples d'ajout, de modification et de suppression) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Pourquoi :) Tj
+(- insert, update, delete) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(- ca permettait de voir tout de suite si la base etait coherente) Tj
+(On a fait cette partie avant l'API pour verifier que la base etait deja) Tj
+0 -15 Td
+(coherente.) Tj
+0 -15 Td
+() Tj
+0 -15 Td
+(6. PROCEDURE ET TRIGGERS) Tj
+0 -15 Td
+() Tj
+0 -15 Td
+(On a ajoute une procedure de classement des eleves.) Tj
+0 -15 Td
+() Tj
+0 -15 Td
+(Le score tient compte :) Tj
+0 -15 Td
+() Tj
+0 -15 Td
+(- de la moyenne) Tj
+0 -15 Td
+(- des absences) Tj
+0 -15 Td
+(- des avertissements) Tj
+0 -15 Td
+() Tj
+0 -15 Td
+(On a aussi ajoute les triggers demandes :) Tj
+0 -15 Td
+() Tj
+0 -15 Td
+(- creation automatique du dossier) Tj
+0 -15 Td
+(- ajout de l'info "mineur" si l'eleve a moins de 18 ans) Tj
+0 -15 Td
+(- garder la meilleure note) Tj
+0 -15 Td
+(- mettre une note a 10 si le prof est supprime) Tj
+0 -15 Td
+() Tj
+0 -15 Td
+(7. API) Tj
+0 -15 Td
+() Tj
+0 -15 Td
+(Quand la base etait stable, on a fait l'API avec FastAPI.) Tj
+0 -15 Td
+() Tj
+0 -15 Td
+(L'idee etait de garder des requetes SQL simples dans `requetes.py`, puis de) Tj
 ET
 endstream
 endobj
 7 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 8 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 11 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 2375 >>
+<< /Length 1630 >>
 stream
 BT
 /F1 11 Tf
 50 782 Td
-(- si une requete etait compliquee a faire, c'etait souvent un signe qu'il fallait) Tj
-0 -15 Td
-(  revoir une relation ou une table) Tj
+(faire les traitements dans `traitements.py`.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(6. LA PROCEDURE STOCKEE ET LES TRIGGERS) Tj
+(Exemples :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Apres les requetes classiques, nous avons fait la procedure de classement des eleves.) Tj
+(- bonnes notes) Tj
 0 -15 Td
-(L'idee etait de calculer un score a partir de la moyenne, des absences et des) Tj
+(- profs severes) Tj
 0 -15 Td
-(avertissements.) Tj
+(- heures d'absence) Tj
 0 -15 Td
-() Tj
-0 -15 Td
-(Nous avons ensuite ajoute 3 triggers demandes dans le sujet :) Tj
+(- regroupement des notes) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(- creation automatique d'un dossier quand on ajoute un eleve) Tj
-0 -15 Td
-(- ajout de l'information "mineur" dans le dossier si l'eleve a moins de 18 ans) Tj
-0 -15 Td
-(- conservation de la meilleure note si on essaye de baisser une note) Tj
-0 -15 Td
-(- quand un prof est supprime, les notes passent a 10 et le prof devient NULL) Tj
+(8. MENU ADMIN) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Cette partie nous a servi a montrer que la base ne fait pas seulement du stockage, mais) Tj
-0 -15 Td
-(qu'elle gere aussi certaines regles metier.) Tj
+(Le menu admin a ete fait apres l'API.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(7. CREATION DE L'API) Tj
+(Il ne parle pas directement a MySQL.) Tj
+0 -15 Td
+(Il passe par l'API avec `requests`.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Quand la base etait stable, nous avons commence l'API avec FastAPI.) Tj
+(Le menu reste simple :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Nous avons fait ce choix parce que :) Tj
+(- lire) Tj
+0 -15 Td
+(- creer) Tj
+0 -15 Td
+(- modifier) Tj
+0 -15 Td
+(- supprimer) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(- c'etait dans la logique du cours) Tj
+(Le menu affiche aussi les listes avant de demander un id, ce qui evite de taper) Tj
 0 -15 Td
-(- Swagger est pratique pour tester vite) Tj
-0 -15 Td
-(- les routes GET, POST, PUT et DELETE sont simples a montrer) Tj
+(des valeurs au hasard.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Nous avons essaye de garder une idee importante du sujet :) Tj
+(9. PARTIES EN PLUS) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(- faire des requetes SQL simples cote API) Tj
-0 -15 Td
-(- faire les tris, filtres et calculs en Python) Tj
+(On a garde 2 ajouts :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Donc l'ordre etait souvent :) Tj
+(- les clubs) Tj
+0 -15 Td
+(- l'alternance) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(1. recuperer des donnees depuis MySQL) Tj
+(Les clubs servent surtout a montrer une autre relation plusieurs-a-plusieurs.) Tj
 0 -15 Td
-(2. retravailler les donnees en Python) Tj
-0 -15 Td
-(3. renvoyer le resultat dans le format demande) Tj
+(L'alternance permet d'avoir des entreprises et des contrats eleve/entreprise.) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Par exemple, pour les bonnes notes, les profs severes ou les absences en heures,) Tj
-0 -15 Td
-(le calcul est fait en Python et pas dans une grosse requete SQL.) Tj
+(10. CE QUI ETAIT LE PLUS DELICAT) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(8. POURQUOI NOUS AVONS SEPARE LES FICHIERS DE L'API) Tj
+(Les points les plus delicats etaient :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Nous avons separe l'API en plusieurs petits fichiers pour nous y retrouver plus) Tj
+(- faire une base assez riche sans la rendre illisible) Tj
 0 -15 Td
-(facilement :) Tj
+(- respecter le format exact de certaines routes) Tj
 0 -15 Td
-() Tj
-ET
-endstream
-endobj
-9 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 10 0 R >>
-endobj
-10 0 obj
-<< /Length 2098 >>
-stream
-BT
-/F1 11 Tf
-50 782 Td
-(- routes.py pour les routes) Tj
+(- faire cohabiter les triggers sans bug) Tj
 0 -15 Td
-(- traitements.py pour les traitements) Tj
-0 -15 Td
-(- requetes.py pour les requetes simples) Tj
-0 -15 Td
-(- bdd.py pour la connexion a MySQL) Tj
-0 -15 Td
-(- schemas.py pour les modeles FastAPI) Tj
+(- garder un menu simple) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Nous trouvions ca plus propre qu'un seul gros fichier, surtout quand nous avons commence) Tj
-0 -15 Td
-(a) Tj
-0 -15 Td
-(ajouter les CRUD et les routes supplementaires.) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(9. LE MENU ADMIN EN LIGNE DE COMMANDE) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Une fois l'API faite, nous avons ajoute le menu admin.) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Nous l'avons fait apres l'API et pas avant, parce que le menu depend completement des) Tj
-0 -15 Td
-(routes.) Tj
-0 -15 Td
-(Le menu envoie des requetes HTTP avec requests, donc il ne parle jamais directement a) Tj
-0 -15 Td
-(la base de donnees.) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(C'etait important pour respecter le sujet.) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Nous avons essaye de faire un menu simple :) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(- lire les eleves) Tj
-0 -15 Td
-(- creer, modifier, supprimer) Tj
-0 -15 Td
-(- faire pareil pour les profs, instances, clubs) Tj
-0 -15 Td
-(- modifier le dossier) Tj
-0 -15 Td
-(- voir les routes du sujet depuis le menu) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Nous avons aussi fait en sorte que le menu affiche souvent les listes avant de demander) Tj
-0 -15 Td
-(un id,) Tj
-0 -15 Td
-(pour eviter de taper des valeurs au hasard.) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(10. LA FONCTIONNALITE SUPPLEMENTAIRE) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Nous avons choisi les clubs de l'ecole.) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Pourquoi ce choix :) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(- ca ajoutait une vraie fonctionnalite sans casser le sujet principal) Tj
-0 -15 Td
-(- ca permettait d'avoir du CRUD en plus) Tj
-0 -15 Td
-(- ca montrait une relation entre eleves, clubs et parfois prof responsable) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Nous avons donc ajoute :) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(- la table club) Tj
-0 -15 Td
-(- la table inscription_club) Tj
-0 -15 Td
-(- les routes API pour lire et modifier les clubs) Tj
-ET
-endstream
-endobj
-11 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 12 0 R >>
-endobj
-12 0 obj
-<< /Length 2135 >>
-stream
-BT
-/F1 11 Tf
-50 782 Td
-(- les actions correspondantes dans le menu admin) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(11. COMMENT NOUS AVONS VERIFIE LE PROJET) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Nous n'avons pas juste ecrit le code. Nous avons aussi verifie au fur et a mesure :) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(- que la base se recree bien) Tj
-0 -15 Td
-(- que les donnees se chargent sans erreur) Tj
-0 -15 Td
-(- que les requetes SQL passent) Tj
-0 -15 Td
-(- que les triggers font bien ce qui est demande) Tj
-0 -15 Td
-(- que l'API repond) Tj
-0 -15 Td
-(- que le menu admin fonctionne avec l'API) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Nous avons garde un script de verification pour rejouer rapidement les tests importants.) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(12. LES PRINCIPALES DIFFICULTES) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Les difficultes principales etaient surtout :) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(- garder une base simple mais assez riche) Tj
-0 -15 Td
-(- respecter les formats exacts demandes pour certaines routes) Tj
-0 -15 Td
-(- faire cohabiter le trigger "garder la meilleure note" avec celui qui met les notes a) Tj
-0 -15 Td
-(  10 lors de la suppression d'un prof) Tj
-0 -15 Td
-(- faire un menu admin utile sans le rendre trop complique) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(La solution a souvent ete de reprendre calmement la logique :) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(- d'abord verifier la base) Tj
-0 -15 Td
-(- ensuite verifier la route API) Tj
-0 -15 Td
-(- ensuite verifier le menu) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(13. POURQUOI NOUS AVONS CHOISI CET ORDRE DE TRAVAIL) Tj
+(11. ORDRE DE TRAVAIL) Tj
 0 -15 Td
 () Tj
 0 -15 Td
 (L'ordre final a ete :) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(1. penser les donnees) Tj
-0 -15 Td
-(2. faire la base et les relations) Tj
-0 -15 Td
-(3. mettre des donnees de test) Tj
-0 -15 Td
-(4. faire les requetes SQL) Tj
-0 -15 Td
-(5. ajouter procedure et triggers) Tj
-0 -15 Td
-(6. creer l'API) Tj
-0 -15 Td
-(7. creer le menu admin) Tj
-0 -15 Td
-(8. tester l'ensemble) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Nous avons choisi cet ordre parce que chaque etape depend de la precedente. Si la base) Tj
-0 -15 Td
-(est) Tj
-0 -15 Td
-(mal faite au debut, tout le reste devient plus difficile a corriger ensuite.) Tj
-0 -15 Td
-() Tj
 ET
 endstream
 endobj
-13 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 15 0 R >> >> /Contents 14 0 R >>
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 11 0 R >> >> /Contents 10 0 R >>
 endobj
-14 0 obj
-<< /Length 1141 >>
+10 0 obj
+<< /Length 786 >>
 stream
 BT
 /F1 11 Tf
 50 782 Td
-(14. CE QUE NOUS RETENONS) Tj
+() Tj
+0 -15 Td
+(1. penser les tables) Tj
+0 -15 Td
+(2. faire la base) Tj
+0 -15 Td
+(3. charger des donnees) Tj
+0 -15 Td
+(4. faire les requetes SQL) Tj
+0 -15 Td
+(5. ajouter la procedure et les triggers) Tj
+0 -15 Td
+(6. faire l'API) Tj
+0 -15 Td
+(7. faire le menu admin) Tj
+0 -15 Td
+(8. verifier l'ensemble) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Ce projet nous a surtout servi a voir le lien entre :) Tj
+(12. CE QU'ON RETIENT) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(- la modelisation SQL) Tj
-0 -15 Td
-(- les traitements Python) Tj
-0 -15 Td
-(- une API REST) Tj
-0 -15 Td
-(- une petite interface d'administration) Tj
+(Ce projet nous a surtout servi a relier plusieurs choses vues en cours :) Tj
 0 -15 Td
 () Tj
 0 -15 Td
-(Le point le plus important pour nous, c'est qu'une API ne doit pas etre construite au) Tj
+(- modeliser une base) Tj
 0 -15 Td
-(hasard. Il faut d'abord avoir des donnees propres, puis des routes utiles, puis une) Tj
+(- faire des requetes SQL utiles) Tj
 0 -15 Td
-(interface qui s'appuie dessus.) Tj
+(- recuperer les donnees en Python) Tj
 0 -15 Td
-() Tj
+(- retravailler les resultats en Python) Tj
 0 -15 Td
-(15. CONCLUSION) Tj
+(- exposer la base avec une API) Tj
 0 -15 Td
-() Tj
-0 -15 Td
-(Si nous resumons simplement :) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(- nous avons commence par la base) Tj
-0 -15 Td
-(- nous avons verifie les requetes SQL) Tj
-0 -15 Td
-(- nous avons ajoute la procedure et les triggers) Tj
-0 -15 Td
-(- nous avons construit l'API par-dessus) Tj
-0 -15 Td
-(- nous avons termine par le menu admin) Tj
-0 -15 Td
-() Tj
-0 -15 Td
-(Nous avons fait comme ca parce que nous trouvions cet ordre plus logique, plus propre,) Tj
-0 -15 Td
-(et plus) Tj
-0 -15 Td
-(facile a tester a chaque etape.) Tj
+(- utiliser cette API dans un petit outil admin) Tj
 ET
 endstream
 endobj
-15 0 obj
+11 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 xref
-0 16
+0 12
 0000000000 65535 f 
 0000000015 00000 n 
 0000000064 00000 n 
-0000000153 00000 n 
-0000000280 00000 n 
-0000002425 00000 n 
-0000002552 00000 n 
-0000004668 00000 n 
-0000004795 00000 n 
-0000007222 00000 n 
-0000007350 00000 n 
-0000009501 00000 n 
-0000009630 00000 n 
-0000011818 00000 n 
-0000011947 00000 n 
-0000013141 00000 n 
+0000000139 00000 n 
+0000000266 00000 n 
+0000002016 00000 n 
+0000002143 00000 n 
+0000003990 00000 n 
+0000004117 00000 n 
+0000005799 00000 n 
+0000005927 00000 n 
+0000006765 00000 n 
 trailer
-<< /Size 16 /Root 1 0 R >>
+<< /Size 12 /Root 1 0 R >>
 startxref
-13212
+6836
 %%EOF

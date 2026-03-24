@@ -1,9 +1,9 @@
-DROP DATABASE IF EXISTS cozma_miroslav;
-CREATE DATABASE cozma_miroslav
+DROP DATABASE IF EXISTS equipe_5;
+CREATE DATABASE equipe_5
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 
-USE cozma_miroslav;
+USE equipe_5;
 
 -- Partie 1 : ce qui sert a organiser l'ecole
 

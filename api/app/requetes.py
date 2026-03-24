@@ -1,8 +1,4 @@
-"""Petites requetes SQL utilisees par l'API.
-
-Ici on garde surtout des SELECT simples.
-Les calculs et les tris sont faits dans traitements.py.
-"""
+"""Requetes SQL simples utilisees par l'API."""
 
 STUDENT_SELECT = """
 SELECT

@@ -3,7 +3,7 @@ from datetime import date, datetime
 from pydantic import BaseModel, Field
 
 
-# Schemas utilises pour verifier les donnees recues
+# Modeles utilises pour verifier les donnees recues
 
 class EleveCreate(BaseModel):
     nom: str = Field(min_length=2, max_length=150)

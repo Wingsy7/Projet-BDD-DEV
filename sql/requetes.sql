@@ -1,4 +1,4 @@
-USE cozma_miroslav;
+USE equipe_5;
 
 -- 1. Requetes simples
 -- Liste de tous les eleves (nom et age)

@@ -1,4 +1,4 @@
-USE cozma_miroslav;
+USE equipe_5;
 
 DROP TRIGGER IF EXISTS trg_after_eleve_insert_create_dossier;
 DROP TRIGGER IF EXISTS trg_before_prof_delete_notes_to_ten;

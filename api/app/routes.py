@@ -1,5 +1,3 @@
-from typing import Annotated
-
 from fastapi import FastAPI, Query
 
 from .traitements import GestionEcole
@@ -100,7 +98,7 @@ def get_notes_for_eleve(eleve_id: int) -> list[dict]:
 @app.get("/note")
 def get_notes(
     par: str | None = None,
-    type_param: Annotated[str | None, Query(alias="type")] = None,
+    type_param: str | None = Query(default=None, alias="type"),
 ) -> list[dict] | dict:
     group_value = par or type_param
     if group_value:
