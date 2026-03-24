@@ -111,10 +111,13 @@ summary = {
 print(json.dumps(summary, indent=2, ensure_ascii=True))
 "@
     $apiSmoke | & $python - | Out-Host
+    Assert-LastExitCode "Le test API a echoue"
 
     Write-Host ""
     Write-Host "== CLI smoke =="
-    @("1", "25", "1", "0") | & $python ".\admin_cli\menu.py" | Select-Object -First 35 | Out-Host
+    $cliOutput = @("1", "33", "1", "0") | & $python ".\admin_cli\menu.py"
+    Assert-LastExitCode "Le test CLI a echoue"
+    $cliOutput | Select-Object -First 35 | Out-Host
 }
 finally {
     if (-not $proc.HasExited) {

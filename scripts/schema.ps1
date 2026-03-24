@@ -6,20 +6,22 @@ $outputPath = [System.IO.Path]::GetFullPath($outputPath)
 $bitmap = New-Object System.Drawing.Bitmap 2400, 1950
 $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
 $graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
-$graphics.Clear([System.Drawing.Color]::FromArgb(248, 248, 244))
+$graphics.Clear([System.Drawing.Color]::FromArgb(252, 251, 247))
 
-$titleFont = New-Object System.Drawing.Font("Segoe UI", 24, [System.Drawing.FontStyle]::Bold)
-$headerFont = New-Object System.Drawing.Font("Segoe UI", 14, [System.Drawing.FontStyle]::Bold)
+$titleFont = New-Object System.Drawing.Font("Segoe UI", 22, [System.Drawing.FontStyle]::Bold)
+$subTitleFont = New-Object System.Drawing.Font("Segoe UI", 11)
+$headerFont = New-Object System.Drawing.Font("Segoe UI", 13, [System.Drawing.FontStyle]::Bold)
 $textFont = New-Object System.Drawing.Font("Consolas", 11)
-$linePen = New-Object System.Drawing.Pen([System.Drawing.Color]::FromArgb(68, 68, 68), 2)
-$relationPen = New-Object System.Drawing.Pen([System.Drawing.Color]::FromArgb(26, 115, 232), 2)
+$linePen = New-Object System.Drawing.Pen([System.Drawing.Color]::FromArgb(78, 78, 78), 2)
+$relationPen = New-Object System.Drawing.Pen([System.Drawing.Color]::FromArgb(92, 110, 118), 2)
 $relationPen.EndCap = [System.Drawing.Drawing2D.LineCap]::ArrowAnchor
-$headerBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(39, 76, 119))
+$headerBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(96, 125, 139))
 $fillBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::White)
 $textBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(33, 33, 33))
 $headerTextBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::White)
 
-$graphics.DrawString("Schema BDD Ecole - Projet avance", $titleFont, $textBrush, 40, 20)
+$graphics.DrawString("Schema BDD - Projet ecole", $titleFont, $textBrush, 40, 20)
+$graphics.DrawString("Vue d'ensemble des tables principales", $subTitleFont, $textBrush, 44, 56)
 
 $tables = @(
     @{ Name = "specialite"; X = 40; Y = 90; Fields = @("id PK", "nom") },

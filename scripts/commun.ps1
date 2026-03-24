@@ -86,10 +86,20 @@ function Test-ExecutableWorks {
 
     try {
         & $Path @Arguments > $null 2> $null
-        return $true
+        return ($LASTEXITCODE -eq 0)
     }
     catch {
         return $false
+    }
+}
+
+function Assert-LastExitCode {
+    param(
+        [string] $Message
+    )
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "$Message (code $LASTEXITCODE)."
     }
 }
 
@@ -200,6 +210,7 @@ function Invoke-SqlFile {
     $args = Get-DbCliArgs
     $args += "--execute=source $($fullPath -replace '\\', '/')"
     & $mysql @args | Out-Host
+    Assert-LastExitCode "Erreur pendant l'execution du fichier SQL $fullPath"
 }
 
 function Invoke-SqlQuery {
@@ -210,6 +221,7 @@ function Invoke-SqlQuery {
     $args += "--table"
     $args += "--execute=$Query"
     & $mysql @args | Out-Host
+    Assert-LastExitCode "Erreur pendant l'execution d'une requete SQL"
 }
 
 function Get-FreeTcpPort {
