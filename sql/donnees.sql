@@ -392,7 +392,7 @@ INSERT INTO alternance (
     (11, 6, 10, 'Professionnalisation', 'Consultant data junior', '4 jours entreprise / 1 jour ecole', '2026-10-05', '2027-10-04', 1390.00),
     (12, 16, 8, 'Apprentissage', 'Developpeuse web junior', '3 semaines entreprise / 1 semaine ecole', '2026-09-08', '2027-09-07', 1310.00),
     (13, 18, 6, 'Apprentissage', 'Assistante data', '4 jours entreprise / 1 jour ecole', '2026-09-12', '2027-09-11', 1340.00),
-    (14, 21, 10, 'Professionnalisation', 'Chargé de reporting junior', '4 jours entreprise / 1 jour ecole', '2026-10-01', '2027-09-30', 1360.00),
+    (14, 21, 10, 'Professionnalisation', 'Charge de reporting junior', '4 jours entreprise / 1 jour ecole', '2026-10-01', '2027-09-30', 1360.00),
     (15, 22, 8, 'Apprentissage', 'Developpeuse front junior', '3 semaines entreprise / 1 semaine ecole', '2026-09-05', '2027-09-04', 1330.00);
 
 -- On remplit la table de classement a la fin
