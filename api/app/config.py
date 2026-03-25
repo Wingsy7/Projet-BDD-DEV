@@ -28,7 +28,7 @@ class Settings:
         self.db_port = int(os.getenv("SCHOOL_DB_PORT", "3306"))
         self.db_user = os.getenv("SCHOOL_DB_USER", "root")
         self.db_password = os.getenv("SCHOOL_DB_PASSWORD", "")
-        self.db_name = os.getenv("SCHOOL_DB_NAME", "equipe_5")
+        self.db_name = os.getenv("SCHOOL_DB_NAME", "equipe_6")
 
 
 settings = Settings()

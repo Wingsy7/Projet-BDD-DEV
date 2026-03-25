@@ -1,4 +1,4 @@
-USE equipe_5;
+USE equipe_6;
 
 DROP TRIGGER IF EXISTS trg_after_eleve_insert_create_dossier;
 DROP TRIGGER IF EXISTS trg_before_prof_delete_notes_to_ten;

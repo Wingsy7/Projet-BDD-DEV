@@ -1,4 +1,4 @@
-USE equipe_5;
+USE equipe_6;
 
 -- 1. Requetes simples
 -- Liste de tous les eleves (nom et age)

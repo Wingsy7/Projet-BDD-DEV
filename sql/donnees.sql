@@ -1,4 +1,4 @@
-USE equipe_5;
+USE equipe_6;
 
 -- 1. Specialites, promotions, cours et profs
 

@@ -1,9 +1,9 @@
-DROP DATABASE IF EXISTS equipe_5;
-CREATE DATABASE equipe_5
+DROP DATABASE IF EXISTS equipe_6;
+CREATE DATABASE equipe_6
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 
-USE equipe_5;
+USE equipe_6;
 
 -- Partie 1 : ce qui sert a organiser l'ecole
 

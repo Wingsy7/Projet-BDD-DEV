@@ -2,7 +2,7 @@
 
 Import-ProjectEnv
 
-$databaseName = Get-EnvValue "SCHOOL_DB_NAME" "equipe_5"
+$databaseName = Get-EnvValue "SCHOOL_DB_NAME" "equipe_6"
 $dumpPath = Join-Path (Get-ProjectRoot) "sql\\export.sql"
 $dumpPath = [System.IO.Path]::GetFullPath($dumpPath)
 $mysqldump = Get-MySqlDumpPath

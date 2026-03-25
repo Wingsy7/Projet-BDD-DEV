@@ -53,7 +53,7 @@ function Import-ProjectEnv {
         "SCHOOL_DB_HOST" = "localhost"
         "SCHOOL_DB_PORT" = "3306"
         "SCHOOL_DB_USER" = "root"
-        "SCHOOL_DB_NAME" = "equipe_5"
+        "SCHOOL_DB_NAME" = "equipe_6"
         "SCHOOL_API_URL" = "http://127.0.0.1:8000"
     }
 

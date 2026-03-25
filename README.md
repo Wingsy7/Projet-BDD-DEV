@@ -82,7 +82,7 @@ Routes principales :
 Le nom de base actuel est :
 
 ```text
-equipe_5
+equipe_6
 ```
 
 Si besoin, on peut le changer avec :
@@ -182,4 +182,3 @@ On peut partir de `.env.example`.
 - scripts SQL
 - API Python
 - menu admin
-

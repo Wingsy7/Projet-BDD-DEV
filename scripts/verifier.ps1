@@ -6,7 +6,7 @@ Import-ProjectEnv
 
 $projectRoot = Get-ProjectRoot
 $python = Get-PythonPath
-$dbName = Get-EnvValue "SCHOOL_DB_NAME" "equipe_5"
+$dbName = Get-EnvValue "SCHOOL_DB_NAME" "equipe_6"
 
 Write-Host ""
 Write-Host "== Reset base =="
