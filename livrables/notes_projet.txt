@@ -68,6 +68,7 @@ Une fois la base faite, on a ecrit les requetes du sujet :
 - AVG, SUM, GROUP BY, HAVING, ORDER BY
 - sous-requetes
 - insert, update, delete
+- quelques requetes bonus sur les clubs et l'alternance
 
 On a fait cette partie avant l'API pour verifier que la base etait deja
 coherente.

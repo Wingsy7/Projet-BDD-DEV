@@ -176,7 +176,27 @@ FROM absence a
 JOIN eleve e ON e.id = a.eleve_id
 WHERE e.nom = 'Martin Lopez';
 
--- 7. Bonus alternance
+-- 7. Bonus clubs
+-- Membres de chaque club
+SELECT
+    c.nom AS club,
+    e.nom AS eleve,
+    ic.role_membre
+FROM inscription_club ic
+JOIN club c ON c.id = ic.club_id
+JOIN eleve e ON e.id = ic.eleve_id
+ORDER BY c.nom, e.nom;
+
+-- Nombre de membres par club
+SELECT
+    c.nom AS club,
+    COUNT(ic.id) AS nb_membres
+FROM club c
+LEFT JOIN inscription_club ic ON ic.club_id = c.id
+GROUP BY c.id, c.nom
+ORDER BY nb_membres DESC, c.nom ASC;
+
+-- 8. Bonus alternance
 -- Contrats eleves / entreprises
 SELECT
     e.nom AS eleve,

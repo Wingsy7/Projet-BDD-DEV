@@ -15,7 +15,7 @@ Le projet contient 3 parties :
 
 - `sql/base.sql` : creation de la base et des tables
 - `sql/donnees.sql` : jeu de donnees de depart
-- `sql/requetes.sql` : requetes SQL du sujet
+- `sql/requetes.sql` : requetes SQL du sujet + bonus clubs et alternance
 - `sql/automatismes.sql` : procedure et triggers
 - `sql/export.sql` : export final de la base
 - `api/app/routes.py` : routes de l'API
@@ -174,6 +174,8 @@ On peut partir de `.env.example`.
 - les calculs et tris de l'API sont faits en Python
 - le menu admin passe par l'API
 - la base contient aussi une procedure stockee et des triggers
+- les clubs montrent une relation plusieurs-a-plusieurs entre eleves et clubs
+- l'alternance ajoute une relation entre eleves et entreprises
 
 ## Livrables
 

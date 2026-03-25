@@ -1,17 +1,17 @@
 import mysql.connector
 from fastapi import HTTPException
 
-from .config import settings
+from .config import db_host, db_name, db_password, db_port, db_user
 
 
 def ouvrir_connexion():
     try:
         return mysql.connector.connect(
-            host=settings.db_host,
-            port=settings.db_port,
-            user=settings.db_user,
-            password=settings.db_password,
-            database=settings.db_name,
+            host=db_host,
+            port=db_port,
+            user=db_user,
+            password=db_password,
+            database=db_name,
         )
     except mysql.connector.Error:
         raise HTTPException(

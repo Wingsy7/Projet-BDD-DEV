@@ -20,15 +20,8 @@ def charger_env_local() -> None:
 
 
 charger_env_local()
-
-
-class Settings:
-    def __init__(self) -> None:
-        self.db_host = os.getenv("SCHOOL_DB_HOST", "localhost")
-        self.db_port = int(os.getenv("SCHOOL_DB_PORT", "3306"))
-        self.db_user = os.getenv("SCHOOL_DB_USER", "root")
-        self.db_password = os.getenv("SCHOOL_DB_PASSWORD", "")
-        self.db_name = os.getenv("SCHOOL_DB_NAME", "equipe_6")
-
-
-settings = Settings()
+db_host = os.getenv("SCHOOL_DB_HOST", "localhost")
+db_port = int(os.getenv("SCHOOL_DB_PORT", "3306"))
+db_user = os.getenv("SCHOOL_DB_USER", "root")
+db_password = os.getenv("SCHOOL_DB_PASSWORD", "")
+db_name = os.getenv("SCHOOL_DB_NAME", "equipe_6")

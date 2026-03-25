@@ -117,7 +117,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 11 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 1795 >>
+<< /Length 1775 >>
 stream
 BT
 /F1 11 Tf
@@ -165,6 +165,8 @@ BT
 (- sous-requetes) Tj
 0 -15 Td
 (- insert, update, delete) Tj
+0 -15 Td
+(- quelques requetes bonus sur les clubs et l'alternance) Tj
 0 -15 Td
 () Tj
 0 -15 Td
@@ -215,8 +217,6 @@ BT
 (Quand la base etait stable, on a fait l'API avec FastAPI.) Tj
 0 -15 Td
 () Tj
-0 -15 Td
-(L'idee etait de garder des requetes SQL simples dans `requetes.py`, puis de) Tj
 ET
 endstream
 endobj
@@ -224,11 +224,13 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 11 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 1630 >>
+<< /Length 1684 >>
 stream
 BT
 /F1 11 Tf
 50 782 Td
+(L'idee etait de garder des requetes SQL simples dans `requetes.py`, puis de) Tj
+0 -15 Td
 (faire les traitements dans `traitements.py`.) Tj
 0 -15 Td
 () Tj
@@ -322,8 +324,6 @@ BT
 (11. ORDRE DE TRAVAIL) Tj
 0 -15 Td
 () Tj
-0 -15 Td
-(L'ordre final a ete :) Tj
 ET
 endstream
 endobj
@@ -331,11 +331,13 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 11 0 R >> >> /Contents 10 0 R >>
 endobj
 10 0 obj
-<< /Length 786 >>
+<< /Length 822 >>
 stream
 BT
 /F1 11 Tf
 50 782 Td
+(L'ordre final a ete :) Tj
+0 -15 Td
 () Tj
 0 -15 Td
 (1. penser les tables) Tj
@@ -390,13 +392,13 @@ xref
 0000000266 00000 n 
 0000002016 00000 n 
 0000002143 00000 n 
-0000003990 00000 n 
-0000004117 00000 n 
-0000005799 00000 n 
-0000005927 00000 n 
-0000006765 00000 n 
+0000003970 00000 n 
+0000004097 00000 n 
+0000005833 00000 n 
+0000005961 00000 n 
+0000006835 00000 n 
 trailer
 << /Size 12 /Root 1 0 R >>
 startxref
-6836
+6906
 %%EOF
