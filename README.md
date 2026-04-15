@@ -1,186 +1,96 @@
-# Projet Ecole Avance
+# Projet-BDD-DEV
 
-Projet realise pour les 2 sujets :
+![Status](https://img.shields.io/badge/status-active-success)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
 
-- `BDD & SQL - Projet Ecole (avance)`
-- `Dev BDD - API Projet Ecole (avance)`
+School management project combining a MySQL database, a FastAPI backend and a command-line admin interface.
+The goal is to model a realistic school system, expose structured API endpoints and handle business logic in Python.
 
-Le projet contient 3 parties :
+## Main Components
 
-- une base MySQL
-- une API en Python avec FastAPI
-- un menu admin en ligne de commande
+- MySQL database with schema, seed data, queries, stored procedure and triggers
+- FastAPI application exposing read and CRUD endpoints
+- Python service layer for filtering, grouping and business calculations
+- Command-line admin menu using HTTP calls to the API
+- Extra modules for clubs and work-study management
 
-## Fichiers utiles
+## Tech Stack
 
-- `sql/base.sql` : creation de la base et des tables
-- `sql/donnees.sql` : jeu de donnees de depart
-- `sql/requetes.sql` : requetes SQL du sujet + bonus clubs et alternance
-- `sql/automatismes.sql` : procedure et triggers
-- `sql/export.sql` : export final de la base
-- `api/app/routes.py` : routes de l'API
-- `api/app/traitements.py` : traitements Python
-- `api/app/requetes.py` : SELECT simples pour l'API
-- `api/app/bdd.py` : connexion a MySQL
-- `admin_cli/menu.py` : menu admin
-- `admin_cli/client.py` : appels HTTP avec `requests`
+| Technology | Usage |
+|---|---|
+| MySQL | Relational database |
+| SQL | Schema, seed data, stored logic and queries |
+| Python | Backend logic |
+| FastAPI | HTTP API |
+| Requests | Admin CLI HTTP client |
+| PowerShell | Setup, verification and export scripts |
 
-## Ordre de lecture
-
-Si on veut relire le projet rapidement, le plus simple est :
-
-1. `sql/base.sql`
-2. `sql/donnees.sql`
-3. `sql/requetes.sql`
-4. `sql/automatismes.sql`
-5. `api/app/requetes.py`
-6. `api/app/bdd.py`
-7. `api/app/traitements.py`
-8. `api/app/routes.py`
-9. `admin_cli/menu.py`
-
-## Ce qu'on a mis en plus
-
-En plus du sujet de base, on a garde 2 parties :
-
-- les clubs de l'ecole
-- l'alternance avec les entreprises
-
-### Clubs
-
-Tables ajoutees :
-
-- `club`
-- `inscription_club`
-
-Routes principales :
-
-- `GET /clubs`
-- `GET /clubs/{club_id}/membres`
-- `GET /eleve/{eleve_id}/clubs`
-- `POST /clubs`
-- `PUT /clubs/{club_id}`
-- `DELETE /clubs/{club_id}`
-
-### Alternance
-
-Tables ajoutees :
-
-- `entreprise`
-- `alternance`
-
-Routes principales :
-
-- `GET /entreprises`
-- `GET /alternances`
-- `GET /eleve/{eleve_id}/alternance`
-- `POST /entreprises`
-- `POST /alternances`
-
-## Base de donnees
-
-Le nom de base actuel est :
+## Architecture
 
 ```text
-equipe_6
+admin_cli/menu.py
+  -> admin_cli/client.py
+  -> api/app/routes.py
+  -> api/app/traitements.py
+  -> api/app/bdd.py
+  -> api/app/requetes.py
+  -> MySQL
 ```
 
-Si besoin, on peut le changer avec :
+## Key Features
 
-- `SCHOOL_DB_NAME`
+- Student, teacher, grade and attendance management
+- Grouped note analysis and filtered endpoints
+- Stored procedure for student ranking
+- Triggers for automatic school rules
+- Club and work-study extensions
+- End-to-end verification script
 
-## Installation
+## Run Locally
 
-Depuis le dossier `projet-ecole-avance` :
+```bash
+# Install dependencies
+pip install -r requirements.txt
 
-```powershell
-.\scripts\installer.ps1
+# Rebuild the database
+powershell -ExecutionPolicy Bypass -File .\scripts\refaire_bdd.ps1
+
+# Start the API
+powershell -ExecutionPolicy Bypass -File .\scripts\demarrer_api.ps1
+
+# Start the admin menu
+powershell -ExecutionPolicy Bypass -File .\scripts\demarrer_menu.ps1
 ```
 
-Si Python n'est pas detecte automatiquement :
-
-```powershell
-$env:SCHOOL_PYTHON = "C:\chemin\vers\python.exe"
-.\scripts\installer.ps1
-```
-
-## Mise en place
-
-Le plus simple :
-
-```powershell
-.\scripts\refaire_bdd.ps1
-```
-
-Ordre manuel si on veut lancer les fichiers un par un :
-
-1. `sql/base.sql`
-2. `sql/automatismes.sql`
-3. `sql/donnees.sql`
-4. `sql/requetes.sql`
-
-## Lancer le projet
-
-API :
-
-```powershell
-.\scripts\demarrer_api.ps1
-```
-
-Menu admin :
-
-```powershell
-.\scripts\demarrer_menu.ps1
-```
-
-Swagger :
+Swagger is available at:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-## Verifier rapidement
+## Project Structure
 
-```powershell
-.\scripts\verifier.ps1
+```text
+Projet-BDD-DEV/
+├── sql/
+├── api/app/
+├── admin_cli/
+├── scripts/
+├── livrables/
+├── README.md
+└── requirements.txt
 ```
 
-Ce script refait la base puis teste :
+## What This Project Demonstrates
 
-- le SQL
-- les triggers
-- l'API
-- le menu admin
+- Database design and business rules in SQL
+- Clean API layering with validation and service logic
+- Practical Python backend development
+- A reproducible workflow with verification and export scripts
 
-## Variables utiles
+## Author
 
-- `SCHOOL_DB_HOST`
-- `SCHOOL_DB_PORT`
-- `SCHOOL_DB_USER`
-- `SCHOOL_DB_PASSWORD`
-- `SCHOOL_DB_NAME`
-- `SCHOOL_API_URL`
-- `SCHOOL_PYTHON`
-- `SCHOOL_MYSQL_EXE`
-- `SCHOOL_MYSQLDUMP_EXE`
-
-Le projet peut lire un fichier `.env`.
-On peut partir de `.env.example`.
-
-## Points a montrer
-
-- `GET /eleve` renvoie seulement `nom` et `age`
-- `GET /notes/{eleve_id}` renvoie `note`, `matiere`, `nom_eleve`
-- les calculs et tris de l'API sont faits en Python
-- le menu admin passe par l'API
-- la base contient aussi une procedure stockee et des triggers
-- les clubs montrent une relation plusieurs-a-plusieurs entre eleves et clubs
-- l'alternance ajoute une relation entre eleves et entreprises
-
-## Livrables
-
-- schema PNG
-- export SQL
-- scripts SQL
-- API Python
-- menu admin
+**Miroslav**  
+GitHub: [Wingsy7](https://github.com/Wingsy7)
