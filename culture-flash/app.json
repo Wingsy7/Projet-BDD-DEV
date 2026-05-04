@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "Quotidiano",
-    "slug": "quotidiano",
-    "scheme": "quotidiano",
+    "name": "CultureFlash",
+    "slug": "culture-flash",
+    "scheme": "cultureflash",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.quotidiano.app"
+      "bundleIdentifier": "com.cultureflash.app"
     },
     "android": {
-      "package": "com.quotidiano.app",
+      "package": "com.cultureflash.app",
       "adaptiveIcon": {
         "backgroundColor": "#0f172a"
       }

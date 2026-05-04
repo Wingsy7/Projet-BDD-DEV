@@ -19,7 +19,7 @@ export default function LoginScreen() {
     <SafeAreaView className="flex-1 justify-center bg-paper px-6">
       <View className="gap-8">
         <View className="gap-3">
-          <Text className="text-5xl font-black text-slate-950">Quotidiano</Text>
+          <Text className="text-5xl font-black text-slate-950">CultureFlash</Text>
           <Text className="text-lg leading-7 text-slate-600">
             Connecte-toi pour sauvegarder ton streak et retrouver tes stats sur tous
             tes appareils.

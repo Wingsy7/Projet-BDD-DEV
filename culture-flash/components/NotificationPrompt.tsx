@@ -10,7 +10,7 @@ type NotificationPromptProps = {
   compact?: boolean;
 };
 
-const NOTIFICATION_TIME_KEY = 'quotidiano-notification-time';
+const NOTIFICATION_TIME_KEY = 'cultureflash-notification-time';
 const notificationTimes = [
   { label: '08:00', hour: 8, minute: 0 },
   { label: '12:30', hour: 12, minute: 30 },

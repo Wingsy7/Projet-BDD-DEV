@@ -1,4 +1,4 @@
-# Quotidiano
+# CultureFlash
 
 Application mobile Expo / React Native de quiz culturel quotidien.
 
@@ -26,7 +26,7 @@ Executer le fichier `supabase/schema.sql` dans l'editeur SQL Supabase avant de
 lancer l'application.
 
 OAuth doit etre active cote Supabase pour Google et Apple. Ajouter aussi le
-schema de redirection Expo `quotidiano://auth/callback` dans les URLs autorisees.
+schema de redirection Expo `cultureflash://auth/callback` dans les URLs autorisees.
 
 ## Verification
 

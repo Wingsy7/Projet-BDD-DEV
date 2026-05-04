@@ -3,7 +3,7 @@ import { decode } from 'he';
 
 import type { TriviaQuestion } from '@/types';
 
-const DAILY_QUESTION_CACHE_KEY = '@quotidiano/daily-question';
+const DAILY_QUESTION_CACHE_KEY = '@cultureflash/daily-question';
 const OPEN_TRIVIA_URL = 'https://opentdb.com/api.php?amount=1&type=multiple';
 
 type OpenTriviaQuestion = {
