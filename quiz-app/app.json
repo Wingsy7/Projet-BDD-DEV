@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "Quotidiano",
+    "slug": "quotidiano",
+    "scheme": "quotidiano",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.quotidiano.app"
+    },
+    "android": {
+      "package": "com.quotidiano.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0f172a"
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-notifications"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
